@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="543.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIRegistration.FXMLDocumentController">
+   <children>
+      <Button fx:id="btnRegister" layoutX="98.0" layoutY="468.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="404.0" text="Register" />
+      <TextField fx:id="txtUsername" layoutX="98.0" layoutY="102.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="81.0" text="Username" />
+      <Label layoutX="98.0" layoutY="141.0" text="Password" />
+      <PasswordField fx:id="txtPassword" layoutX="98.0" layoutY="162.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="202.0" text="First name" />
+      <TextField fx:id="txtFirstName" layoutX="98.0" layoutY="223.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="263.0" text="Last name" />
+      <TextField fx:id="txtLastName" layoutX="98.0" layoutY="284.0" prefHeight="31.0" prefWidth="404.0" />
+      <ComboBox fx:id="cmbGender" layoutX="98.0" layoutY="343.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="322.0" text="Gender" />
+      <DatePicker fx:id="dpBirthDate" layoutX="98.0" layoutY="406.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="385.0" text="Birth date" />
+      <Label layoutX="234.0" layoutY="30.0" text="Registration">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

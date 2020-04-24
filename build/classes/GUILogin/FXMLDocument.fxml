@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="356.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUILogin.FXMLDocumentController">
+   <children>
+      <Button fx:id="btnLogin" layoutX="72.0" layoutY="211.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="376.0" text="Login" />
+      <TextField fx:id="txtUsername" layoutX="72.0" layoutY="89.0" prefHeight="31.0" prefWidth="376.0" />
+      <PasswordField fx:id="txtPassword" layoutX="72.0" layoutY="157.0" prefHeight="31.0" prefWidth="376.0" />
+      <Label layoutX="221.0" layoutY="24.0" prefHeight="21.0" prefWidth="78.0" text="Login" textAlignment="CENTER">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="72.0" layoutY="60.0" text="Username" />
+      <Label layoutX="72.0" layoutY="129.0" text="Password" />
+      <Button fx:id="btnRegister" layoutX="72.0" layoutY="282.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="376.0" text="Register" />
+      <Label layoutX="72.0" layoutY="256.0" text="Not registred?" />
+   </children>
+</AnchorPane>
