@@ -30,10 +30,12 @@ public class SSFX1 extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = fxmlLoader.load();
         fxmlDocumentController = (FXMLDocumentController) fxmlLoader.getController();
+        fxmlDocumentController.setStage(primaryStage);
 
         Scene scene = new Scene(root);
         fxmlDocumentController.cmbGender.getItems().addAll("MALE", "FEMALE");
         fxmlDocumentController.cmbGender.setPromptText("Please select one");
+        fxmlDocumentController.txtUsername.requestFocus();
         //scene.getStylesheets().add("CSS/stylesheet.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("Registration");

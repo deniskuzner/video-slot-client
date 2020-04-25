@@ -5,14 +5,12 @@
  */
 package GUILogin;
 
+import Communication.Communication;
 import Domain.User;
 import GUILogin.Listeners.LoginListener;
 import GUILogin.Listeners.RegistrationListener;
 import Transfer.TransferObject;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -26,16 +24,11 @@ public class GUILoginController {
 
     FXMLDocumentController fxmlDocumentController;
     TransferObject transferObject = new TransferObject();
-    Socket socket;
-    ObjectOutputStream out;
-    ObjectInputStream in;
 
     public GUILoginController(FXMLDocumentController fxmlDocumentController) throws IOException {
         this.fxmlDocumentController = fxmlDocumentController;
         this.fxmlDocumentController.btnLogin.setOnAction(new LoginListener(this));
         this.fxmlDocumentController.btnRegister.setOnAction(new RegistrationListener(this));
-
-        socket = new Socket("127.0.0.1", 8189);
     }
 
     public void poruka(String poruka) {
@@ -50,27 +43,30 @@ public class GUILoginController {
         User user = new User();
         user.setUsername(fxmlDocumentController.txtUsername.getText());
         user.setPassword(fxmlDocumentController.txtPassword.getText());
+        if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+            poruka("All fields are required!");
+            return;
+        }
+
         transferObject.generalEntity = user;
-        executeSO("login");
+        transferObject.operation = "login";
+        transferObject = Communication.getInstance().executeSO(transferObject);
+
         poruka(transferObject.message);
         if (transferObject.signal) {
-//            GUI.SSFX1 ssfx1;
-//            Stage s;
-//            ssfx1 = new GUI.SSFX1();
-//            s = new Stage();
-//            String idKorisnika = String.valueOf(p.idKorisnika);
-//            try {
-//                ssfx1.postaviKorisnika(idKorisnika);
-//                ssfx1.start(s);
-//
-//                fxmlDocumentController.closeForm();
-//            } catch (Exception ex) {
-//                Logger.getLogger(ControllerGUILogin.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            GUIMain.SSFX1 ssfx1 = new GUIMain.SSFX1();
+            Stage s = new Stage();
+            try {
+                ssfx1.setUser((User) transferObject.generalEntity);
+                ssfx1.start(s);
+                fxmlDocumentController.closeForm();
+            } catch (Exception ex) {
+                Logger.getLogger(GUILoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
-    
+
     public void register() {
         try {
             GUIRegistration.SSFX1 ssfx1 = new GUIRegistration.SSFX1();
@@ -78,28 +74,6 @@ public class GUILoginController {
         } catch (IOException ex) {
             Logger.getLogger(GUILoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public void executeSO(String opertaion) {
-        transferObject.operation = opertaion;
-        try {
-            out = new ObjectOutputStream(socket.getOutputStream());
-            in = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(GUILoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            out.writeObject(transferObject);
-        } catch (IOException ex) {
-            Logger.getLogger(GUILoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            transferObject = (TransferObject) in.readObject();
-        } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(GUILoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
 }

@@ -52,4 +52,12 @@ public class FXMLDocumentController implements Initializable {
         guiRegistrationController = new GUIRegistrationController(this);
     }
 
+    void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    void closeForm() {
+        stage.close();
+    }
+
 }

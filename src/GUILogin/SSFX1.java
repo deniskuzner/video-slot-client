@@ -29,6 +29,7 @@ public class SSFX1 extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = fxmlLoader.load();
         fxmlDocumentController = (FXMLDocumentController) fxmlLoader.getController();
+        fxmlDocumentController.setStage(primaryStage);
 
         Scene scene = new Scene(root);
         fxmlDocumentController.txtUsername.requestFocus();
