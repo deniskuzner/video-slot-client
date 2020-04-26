@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIMain.FXMLDocumentController">
-    
+ 
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="443.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIMain.FXMLDocumentController">
+    <children>
+        <MenuBar fx:id="VideoSlotGlavniMeni" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="435.0">
+            <menus>
+                <Menu fx:id="slot" mnemonicParsing="false" text="Slot ">
+  
+                    <items>
+  
+                        <MenuItem fx:id="play" mnemonicParsing="false" onAction="#play" text="Play" />  
+                        <MenuItem fx:id="spinHistory" mnemonicParsing="false" onAction="#showSpinHistory" text="Spin history" />  
+                    </items>
+  
+                </Menu>           
+                <Menu fx:id="rank" mnemonicParsing="false" text="Rank ">
+  
+                    <items>
+  
+                        <MenuItem fx:id="rankList" mnemonicParsing="false" onAction="#showRankList" text="Rank list" />  
+                    </items>
+  
+                </Menu>           
+                <Menu fx:id="user" mnemonicParsing="false" text="User ">
+  
+                    <items>
+  
+                        <MenuItem fx:id="profile" mnemonicParsing="false" onAction="#showUserProfile" text="Profile" />  
+                    </items>
+  
+                </Menu>           
+                <Menu fx:id="exit" mnemonicParsing="false" text="Exit ">
+  
+                    <items>
+  
+                        <MenuItem fx:id="exitProgram" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />  
+                    </items>
+  
+                </Menu>           
+            </menus>
+        </MenuBar>
+    </children>
 </AnchorPane>

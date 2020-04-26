@@ -42,7 +42,6 @@ public class SSFX1 extends Application {
     }
 
     public void setUser(User user) {
-        System.out.println(user.getId());
         this.user = user;
     }
 

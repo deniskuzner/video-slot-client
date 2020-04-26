@@ -13,12 +13,37 @@ import javafx.fxml.FXML;
  * @author User
  */
 public class FXMLDocumentController {
-    
+
     GUIMainController guiMainController;
+
+    @FXML
+    public void play() {
+
+    }
+
+    @FXML
+    public void showSpinHistory() {
+
+    }
+
+    @FXML
+    public void showRankList() {
+
+    }
+
+    @FXML
+    public void showUserProfile() {
+
+    }
+
+    @FXML
+    public void exitProgram() {
+
+    }
 
     @FXML
     public void initialize() {
         guiMainController = new GUIMainController(this);
-    }    
-    
+    }
+
 }
