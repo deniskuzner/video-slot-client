@@ -5,6 +5,7 @@
  */
 package GUILogin;
 
+import Converter.GeneralFXMLDocumentController;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,14 +18,14 @@ import javafx.stage.Stage;
  *
  * @author User
  */
-public class FXMLDocumentController {
+public class FXMLDocumentController implements GeneralFXMLDocumentController {
     
     
     @FXML
-    public TextField txtUsername;
+    public TextField username;
     
     @FXML
-    public PasswordField txtPassword;
+    public PasswordField password;
     
     @FXML
     public Button btnLogin;

@@ -32,7 +32,7 @@ public class SSFX1 extends Application {
         fxmlDocumentController.setStage(primaryStage);
 
         Scene scene = new Scene(root);
-        fxmlDocumentController.txtUsername.requestFocus();
+        fxmlDocumentController.username.requestFocus();
         //scene.getStylesheets().add("CSS/stylesheet.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");

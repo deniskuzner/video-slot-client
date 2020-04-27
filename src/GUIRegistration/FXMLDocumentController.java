@@ -5,6 +5,7 @@
  */
 package GUIRegistration;
 
+import Converter.GeneralFXMLDocumentController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -21,25 +22,25 @@ import javafx.stage.Stage;
  *
  * @author User
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentController implements Initializable, GeneralFXMLDocumentController {
 
     @FXML
-    public TextField txtUsername;
+    public TextField username;
 
     @FXML
-    public PasswordField txtPassword;
+    public PasswordField password;
 
     @FXML
-    public TextField txtFirstName;
+    public TextField firstName;
 
     @FXML
-    public TextField txtLastName;
+    public TextField lastName;
 
     @FXML
-    public ComboBox cmbGender;
+    public ComboBox gender;
 
     @FXML
-    public DatePicker dpBirthDate;
+    public DatePicker birthDate;
 
     @FXML
     public Button btnRegister;

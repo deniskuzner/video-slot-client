@@ -33,9 +33,9 @@ public class SSFX1 extends Application {
         fxmlDocumentController.setStage(primaryStage);
 
         Scene scene = new Scene(root);
-        fxmlDocumentController.cmbGender.getItems().addAll("MALE", "FEMALE");
-        fxmlDocumentController.cmbGender.setPromptText("Please select one");
-        fxmlDocumentController.txtUsername.requestFocus();
+        fxmlDocumentController.gender.getItems().addAll("MALE", "FEMALE");
+        fxmlDocumentController.gender.setPromptText("Please select one");
+        fxmlDocumentController.username.requestFocus();
         //scene.getStylesheets().add("CSS/stylesheet.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("Registration");

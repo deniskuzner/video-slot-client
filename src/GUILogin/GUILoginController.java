@@ -6,6 +6,7 @@
 package GUILogin;
 
 import Communication.Communication;
+import Converter.ConverterGUIDC;
 import Domain.User;
 import GUILogin.Listeners.LoginListener;
 import GUILogin.Listeners.RegistrationListener;
@@ -31,20 +32,19 @@ public class GUILoginController {
         this.fxmlDocumentController.btnRegister.setOnAction(new RegistrationListener(this));
     }
 
-    public void poruka(String poruka) {
+    public void message(String message) {
         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
-        infoAlert.setTitle("Poruka:");
+        infoAlert.setTitle("Message");
         infoAlert.setHeaderText(null);
-        infoAlert.setContentText(poruka);
+        infoAlert.setContentText(message);
         infoAlert.showAndWait();
     }
 
     public void login() {
         User user = new User();
-        user.setUsername(fxmlDocumentController.txtUsername.getText());
-        user.setPassword(fxmlDocumentController.txtPassword.getText());
+        ConverterGUIDC.convertGUIToDC(fxmlDocumentController, user);
         if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
-            poruka("All fields are required!");
+            message("All fields are required!");
             return;
         }
 
@@ -52,7 +52,7 @@ public class GUILoginController {
         transferObject.operation = "login";
         transferObject = Communication.getInstance().executeSO(transferObject);
 
-        poruka(transferObject.message);
+        message(transferObject.message);
         if (transferObject.signal) {
             GUIMain.SSFX1 ssfx1 = new GUIMain.SSFX1();
             Stage s = new Stage();

@@ -22,11 +22,12 @@ public class User implements GeneralEntity {
     private String lastName;
     private String gender;
     private Date birthDate;
+    private int balance;
 
     public User() {
     }
 
-    public User(int id, String username, String password, String firstName, String lastName, String gender, Date birthDate) {
+    public User(int id, String username, String password, String firstName, String lastName, String gender, Date birthDate, int balance) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -34,6 +35,7 @@ public class User implements GeneralEntity {
         this.lastName = lastName;
         this.gender = gender;
         this.birthDate = birthDate;
+        this.balance = balance;
     }
 
     public int getId() {
@@ -92,16 +94,24 @@ public class User implements GeneralEntity {
         this.birthDate = birthDate;
     }
 
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
     @Override
     public String getAtrValue() {
-        return id + ", '" + username + "', '" + password + "', '" + firstName + "', '" + lastName + "', '" + gender + "', '" + birthDate + "'";
+        return id + ", '" + username + "', '" + password + "', '" + firstName + "', '" + lastName + "', '" + gender + "', '" + birthDate + "', " + balance;
     }
 
     @Override
     public String setAtrValue() {
         return "id=" + id + ", username='" + username + "', password='" + password
                 + "', firstName='" + firstName + "', lastName='" + lastName
-                + "', gender='" + gender + "', birthDate='" + birthDate + "'";
+                + "', gender='" + gender + "', birthDate='" + birthDate + "', balance=" + balance;
     }
 
     @Override
@@ -116,13 +126,13 @@ public class User implements GeneralEntity {
 
     @Override
     public String getNameByColumn(int column) {
-        String names[] = {"id", "username", "password", "firstName", "lastName", "gender", "birthDate"};
+        String names[] = {"id", "username", "password", "firstName", "lastName", "gender", "birthDate", "balance"};
         return names[column];
     }
 
     @Override
     public GeneralEntity getNewRecord(ResultSet rs) throws SQLException {
-        return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthDate"));
+        return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthDate"), rs.getInt("balance"));
     }
 
 }
