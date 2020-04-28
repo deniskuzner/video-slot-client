@@ -8,6 +8,7 @@ package GUIMain;
 import Domain.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 
 /**
  * FXML Controller class
@@ -24,31 +25,21 @@ public class FXMLDocumentController {
     
     @FXML
     public Label lblBalance;
-
+    
     @FXML
-    public void play() {
-
-    }
-
+    public MenuItem play;
+    
     @FXML
-    public void showSpinHistory() {
-
-    }
-
+    public MenuItem spinHistory;
+    
     @FXML
-    public void showRankList() {
-
-    }
-
+    public MenuItem rankList;
+    
     @FXML
-    public void showUserProfile() {
-
-    }
-
+    public MenuItem profile;
+    
     @FXML
-    public void exitProgram() {
-
-    }
+    public MenuItem exitProgram;
 
     @FXML
     public void initialize() {

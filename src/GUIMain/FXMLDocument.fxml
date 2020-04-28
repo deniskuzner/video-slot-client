@@ -17,8 +17,8 @@
   
                     <items>
   
-                        <MenuItem fx:id="play" mnemonicParsing="false" onAction="#play" text="Play" />  
-                        <MenuItem fx:id="spinHistory" mnemonicParsing="false" onAction="#showSpinHistory" text="Spin history" />  
+                        <MenuItem fx:id="play" mnemonicParsing="false" text="Play" />  
+                        <MenuItem fx:id="spinHistory" mnemonicParsing="false" text="Spin history" />  
                     </items>
   
                 </Menu>           
@@ -26,7 +26,7 @@
   
                     <items>
   
-                        <MenuItem fx:id="rankList" mnemonicParsing="false" onAction="#showRankList" text="Rank list" />  
+                        <MenuItem fx:id="rankList" mnemonicParsing="false" text="Rank list" />  
                     </items>
   
                 </Menu>           
@@ -34,7 +34,7 @@
   
                     <items>
   
-                        <MenuItem fx:id="profile" mnemonicParsing="false" onAction="#showUserProfile" text="Profile" />  
+                        <MenuItem fx:id="profile" mnemonicParsing="false" text="Profile" />  
                     </items>
   
                 </Menu>           
@@ -42,7 +42,7 @@
   
                     <items>
   
-                        <MenuItem fx:id="exitProgram" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />  
+                        <MenuItem fx:id="exitProgram" mnemonicParsing="false" text="Exit" />  
                     </items>
   
                 </Menu>           
