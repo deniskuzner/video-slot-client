@@ -10,6 +10,7 @@ import Converter.ConverterGUIDC;
 import Domain.User;
 import GUILogin.Listeners.LoginListener;
 import GUILogin.Listeners.RegistrationListener;
+import Session.Session;
 import Transfer.TransferObject;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -57,7 +58,7 @@ public class GUILoginController {
             GUIMain.SSFX1 ssfx1 = new GUIMain.SSFX1();
             Stage s = new Stage();
             try {
-                ssfx1.setUser((User) transferObject.generalEntity);
+                Session.getInstance().setUser((User) transferObject.generalEntity);
                 ssfx1.start(s);
                 fxmlDocumentController.closeForm();
             } catch (Exception ex) {

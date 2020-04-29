@@ -5,12 +5,18 @@
  */
 package GUIMain;
 
+import Domain.User;
 import GUIMain.Listeners.ExitProgramListener;
 import GUIMain.Listeners.PlayListener;
 import GUIMain.Listeners.ProfileListener;
 import GUIMain.Listeners.RankListListener;
 import GUIMain.Listeners.SpinHistoryListener;
+import Session.Session;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 /**
  *
@@ -39,11 +45,24 @@ public class GUIMainController {
     }
 
     public void showUserProfile() {
+        try {
+            GUIUserProfile.SSFX1 ssfx1 = new GUIUserProfile.SSFX1();
+            ssfx1.setGuiMainController(this);
+            ssfx1.start(new Stage());
+        } catch (IOException ex) {
+            Logger.getLogger(GUIMainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void exitProgram() {
         Platform.exit();
         System.exit(0);
+    }
+
+    public void setUser() {
+        User user = Session.getInstance().getUser();
+        fxmlDocumentController.lblFirstNameLastName.setText(user.getFirstName() + " " + user.getLastName());
+        fxmlDocumentController.lblBalance.setText(String.valueOf(user.getBalance()));
     }
 
 }

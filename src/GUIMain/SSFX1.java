@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 public class SSFX1 extends Application {
 
     FXMLDocumentController fxmlDocumentController;
-    User user;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -29,8 +28,7 @@ public class SSFX1 extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = fxmlLoader.load();
         fxmlDocumentController = (FXMLDocumentController) fxmlLoader.getController();
-        fxmlDocumentController.setUser(user);
-        
+
         Scene scene = new Scene(root);
         //scene.getStylesheets().add("CSS/stylesheet.css");
         primaryStage.setScene(scene);
@@ -40,10 +38,6 @@ public class SSFX1 extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }

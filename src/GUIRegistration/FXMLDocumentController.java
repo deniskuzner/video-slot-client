@@ -9,7 +9,6 @@ import Converter.GeneralFXMLDocumentController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -22,7 +21,7 @@ import javafx.stage.Stage;
  *
  * @author User
  */
-public class FXMLDocumentController implements Initializable, GeneralFXMLDocumentController {
+public class FXMLDocumentController implements GeneralFXMLDocumentController {
 
     @FXML
     public TextField username;
@@ -48,8 +47,8 @@ public class FXMLDocumentController implements Initializable, GeneralFXMLDocumen
     public GUIRegistrationController guiRegistrationController;
     public Stage stage;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         guiRegistrationController = new GUIRegistrationController(this);
     }
 

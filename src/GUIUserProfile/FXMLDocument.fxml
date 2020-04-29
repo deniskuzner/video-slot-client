@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="602.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIUserProfile.FXMLDocumentController">
+   <children>
+      <Label layoutX="98.0" layoutY="384.0" text="Birth date" />
+      <DatePicker fx:id="birthDate" layoutX="98.0" layoutY="405.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="321.0" text="Gender" />
+      <ComboBox fx:id="gender" layoutX="98.0" layoutY="342.0" prefHeight="31.0" prefWidth="404.0" />
+      <TextField fx:id="lastName" layoutX="98.0" layoutY="283.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="262.0" text="Last name" />
+      <TextField fx:id="firstName" layoutX="98.0" layoutY="222.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="201.0" text="First name" />
+      <PasswordField fx:id="password" layoutX="98.0" layoutY="161.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="140.0" text="Password" />
+      <Label layoutX="98.0" layoutY="80.0" text="Username" />
+      <TextField fx:id="username" layoutX="98.0" layoutY="101.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="234.0" layoutY="36.0" text="User profile">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnUpdate" layoutX="97.0" layoutY="528.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="190.0" text="Update" />
+      <Button fx:id="btnDelete" layoutX="312.0" layoutY="528.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="190.0" text="Delete" />
+      <TextField fx:id="balance" layoutX="98.0" layoutY="468.0" prefHeight="31.0" prefWidth="404.0" />
+      <Label layoutX="98.0" layoutY="447.0" text="Balance" />
+   </children>
+</AnchorPane>

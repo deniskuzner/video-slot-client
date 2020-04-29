@@ -6,6 +6,7 @@
 package GUIMain;
 
 import Domain.User;
+import Session.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -18,7 +19,6 @@ import javafx.scene.control.MenuItem;
 public class FXMLDocumentController {
 
     GUIMainController guiMainController;
-    User user;
     
     @FXML
     public Label lblFirstNameLastName;
@@ -44,12 +44,7 @@ public class FXMLDocumentController {
     @FXML
     public void initialize() {
         guiMainController = new GUIMainController(this);
+        guiMainController.setUser();
     }
     
-    public void setUser(User user) {
-        this.user = user;
-        this.lblFirstNameLastName.setText(user.getFirstName()+ " " + user.getLastName());
-        this.lblBalance.setText(String.valueOf(user.getBalance()));
-    }
-
 }
