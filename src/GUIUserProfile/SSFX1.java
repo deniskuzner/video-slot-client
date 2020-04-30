@@ -37,8 +37,6 @@ public class SSFX1 extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = fxmlLoader.load();
         fxmlDocumentController = (FXMLDocumentController) fxmlLoader.getController();
-        fxmlDocumentController.gender.getItems().addAll("MALE", "FEMALE");
-        fxmlDocumentController.gender.setPromptText("Please select one");
 
         Scene scene = new Scene(root);
         //scene.getStylesheets().add("CSS/stylesheet.css");

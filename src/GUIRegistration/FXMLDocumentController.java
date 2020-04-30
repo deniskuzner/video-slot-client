@@ -50,6 +50,7 @@ public class FXMLDocumentController implements GeneralFXMLDocumentController {
     @FXML
     public void initialize() {
         guiRegistrationController = new GUIRegistrationController(this);
+        populateCmbGender();
     }
 
     void setStage(Stage stage) {
@@ -58,6 +59,11 @@ public class FXMLDocumentController implements GeneralFXMLDocumentController {
 
     void closeForm() {
         stage.close();
+    }
+
+    private void populateCmbGender() {
+        gender.getItems().addAll("MALE", "FEMALE");
+        gender.setPromptText("Please select one");
     }
 
 }

@@ -10,7 +10,6 @@ import GUIMain.Listeners.ExitProgramListener;
 import GUIMain.Listeners.PlayListener;
 import GUIMain.Listeners.ProfileListener;
 import GUIMain.Listeners.RankListListener;
-import GUIMain.Listeners.SpinHistoryListener;
 import Session.Session;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -29,7 +28,6 @@ public class GUIMainController {
     public GUIMainController(FXMLDocumentController fxmlDocumentController) {
         this.fxmlDocumentController = fxmlDocumentController;
         this.fxmlDocumentController.play.setOnAction(new PlayListener(this));
-        this.fxmlDocumentController.spinHistory.setOnAction(new SpinHistoryListener(this));
         this.fxmlDocumentController.rankList.setOnAction(new RankListListener(this));
         this.fxmlDocumentController.profile.setOnAction(new ProfileListener(this));
         this.fxmlDocumentController.exitProgram.setOnAction(new ExitProgramListener(this));
@@ -38,10 +36,13 @@ public class GUIMainController {
     public void play() {
     }
 
-    public void showSpinHistory() {
-    }
-
     public void showRankList() {
+        try {
+            GUIRankList.SSFX1 ssfx1 = new GUIRankList.SSFX1();
+            ssfx1.start(new Stage());
+        } catch (Exception ex) {
+            Logger.getLogger(GUIMainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void showUserProfile() {

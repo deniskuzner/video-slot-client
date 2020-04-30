@@ -36,7 +36,7 @@ public class FXMLDocumentController implements GeneralFXMLDocumentController {
 
     @FXML
     public ComboBox gender;
-    
+
     @FXML
     public TextField balance;
 
@@ -58,6 +58,8 @@ public class FXMLDocumentController implements GeneralFXMLDocumentController {
     }
 
     private void populateForm() {
+        gender.getItems().addAll("MALE", "FEMALE");
+        gender.setPromptText("Please select one");
         ConverterGUIDC.convertDCToGUI(Session.getInstance().getUser(), this);
     }
 
