@@ -5,14 +5,10 @@
  */
 package GUIUserProfile;
 
-import Domain.User;
 import GUIMain.GUIMainController;
 import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,10 +46,6 @@ public class SSFX1 extends Application {
             }
         });
 
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     public void setGuiMainController(GUIMainController guiMainController) {
