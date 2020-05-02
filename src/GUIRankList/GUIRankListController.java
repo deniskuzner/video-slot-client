@@ -6,6 +6,9 @@
 package GUIRankList;
 
 import Communication.Communication;
+import CompareOperator.CompareOperator;
+import CompareOperator.GreaterThan;
+import CompareOperator.LessThan;
 import Domain.User;
 import GUIRankList.Listeners.SortListener;
 import Transfer.TransferObject;
@@ -30,13 +33,13 @@ public class GUIRankListController {
 
     FXMLDocumentController fxmlDocumentController;
     TransferObject transferObject;
-    List<User> users;
+    ObservableList<User> users;
 
     public GUIRankListController(FXMLDocumentController fxmlDocumentController) {
         this.fxmlDocumentController = fxmlDocumentController;
         this.fxmlDocumentController.btnSort.setOnAction(new SortListener(this));
         this.transferObject = new TransferObject();
-        this.users = new ArrayList<>();
+        this.users = FXCollections.observableArrayList();
     }
 
     public void message(String message) {
@@ -48,13 +51,11 @@ public class GUIRankListController {
     }
 
     ObservableList<User> getAllUsers() {
-        ObservableList result = FXCollections.observableArrayList();
         transferObject.operation = "getUsers";
         transferObject = Communication.getInstance().executeSO(transferObject);
-        users = transferObject.castGeneralList(User.class);
+        users.setAll(transferObject.castGeneralList(User.class));
         sort();
-        result.setAll(users);
-        return result;
+        return users;
     }
 
     public void sort() {
@@ -83,13 +84,13 @@ public class GUIRankListController {
         }
 
         try {
-            sortGeneric(fieldReadMethod, compareOperator);
+            executeSort(fieldReadMethod, compareOperator);
         } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException  ex) {
             Logger.getLogger(GUIRankListController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void sortGeneric(Method fieldReadMethod, CompareOperator compareOperator) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    private void executeSort(Method fieldReadMethod, CompareOperator compareOperator) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         User pom;
         for (int i = 0; i < users.size() - 1; i++) {
             for (int j = i + 1; j < users.size(); j++) {
@@ -100,30 +101,7 @@ public class GUIRankListController {
                 }
             }
         }
-        fxmlDocumentController.refreshTable();
-    }
-
-}
-
-interface CompareOperator {
-
-    <T extends Comparable> boolean compare(T a, T b);
-}
-
-class GreaterThan implements CompareOperator {
-
-    @Override
-    public <T extends Comparable> boolean compare(T a, T b) {
-        return a.compareTo(b) > 0;
-    }
-
-}
-
-class LessThan implements CompareOperator {
-
-    @Override
-    public <T extends Comparable> boolean compare(T a, T b) {
-        return a.compareTo(b) < 0;
+        fxmlDocumentController.tblRankList.setItems(users);
     }
 
 }

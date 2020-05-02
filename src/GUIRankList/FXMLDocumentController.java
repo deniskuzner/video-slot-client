@@ -90,10 +90,4 @@ public class FXMLDocumentController {
         tblRankList.getColumns().addAll(rankColumn, usernameColumn, firsNameColumn, lastNameColumn, balanceColumn);
     }
     
-    public void refreshTable() {
-        ObservableList users = FXCollections.observableArrayList();
-        users.setAll(guiRankListController.users);
-        tblRankList.setItems(users);
-    }
-
 }
