@@ -42,14 +42,6 @@ public class GUIRankListController {
         this.users = FXCollections.observableArrayList();
     }
 
-    public void message(String message) {
-        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
-        infoAlert.setTitle("Message");
-        infoAlert.setHeaderText(null);
-        infoAlert.setContentText(message);
-        infoAlert.showAndWait();
-    }
-
     ObservableList<User> getAllUsers() {
         transferObject.operation = "getUsers";
         transferObject = Communication.getInstance().executeSO(transferObject);
