@@ -5,13 +5,18 @@
  */
 package GUIVideoSlot;
 
-import Domain.Symbol;
 import GUIVideoSlot.Listeners.MinusListener;
 import GUIVideoSlot.Listeners.PlusListener;
 import GUIVideoSlot.Listeners.SpinListener;
+import Server_client.Position;
+import Server_client.SPosition;
+import Server_client.ServerController;
+import Server_client.ServerController_Service;
+import Server_client.Symbol;
+import Server_client.WebServerTransferObject;
 import Session.Session;
-import Transfer.TransferObject;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -28,13 +33,15 @@ import javafx.scene.image.ImageView;
 public final class GUIVideoSlotController {
 
     FXMLDocumentController fxmlDocumentController;
-    TransferObject transferObject;
+    WebServerTransferObject transferObject;
+    ServerController_Service service;
+    ServerController serverController;
     List<Integer> betValues;
     int betValuesIndex;
     int win;
     int mat[][];
     List<Symbol> symbols;
-    //List<Position> positions;
+    List<Position> positions;
     //List<SPosition> sPositions = new ArrayList(); nece biti ovde nego u metodi spin() !!!
 
     public GUIVideoSlotController(FXMLDocumentController fxmlDocumentController) {
@@ -43,26 +50,28 @@ public final class GUIVideoSlotController {
         this.fxmlDocumentController.btnMinus.setOnAction(new MinusListener(this));
         this.fxmlDocumentController.btnSpin.setOnAction(new SpinListener(this));
 
-        transferObject = new TransferObject();
+        transferObject = new WebServerTransferObject();
+        service = new ServerController_Service();
+        serverController = service.getServerControllerPort();
+
         betValues = Arrays.asList(1, 2, 3, 5, 10, 25, 50, 100, 250, 500, 1000);
         betValuesIndex = 0;
         win = 0;
         mat = new int[3][5];
         getSymbols();
-        //getPositions();
+        getPositions();
 
         populateForm();
     }
 
     void getSymbols() {
-        Symbol s1 = new Symbol(1, "lemon");
-        Symbol s2 = new Symbol(2, "orange");
-        Symbol s3 = new Symbol(3, "cherry");
-        Symbol s4 = new Symbol(4, "grapes");
-        Symbol s5 = new Symbol(5, "melon");
-        Symbol s6 = new Symbol(6, "bell");
-        Symbol s7 = new Symbol(7, "seven");
-        symbols = Arrays.asList(s1, s2, s3, s4, s5, s6, s7);
+        executeSO("getSymbols");
+        symbols = transferObject.getSymbols();
+    }
+
+    void getPositions() {
+        executeSO("getPositions");
+        positions = transferObject.getPositions();
     }
 
     void populateForm() {
@@ -80,39 +89,9 @@ public final class GUIVideoSlotController {
         fxmlDocumentController.lblWin.setText(win + " RSD");
     }
 
-    //TODO
     void initializePanel() {
         randomizeMatValues();
         setImages();
-    }
-
-    public void plus() {
-        if (betValuesIndex + 1 < betValues.size()) {
-            betValuesIndex++;
-            setBetLabel();
-        }
-    }
-
-    public void minus() {
-        if (betValuesIndex - 1 >= 0) {
-            betValuesIndex--;
-            setBetLabel();
-        }
-    }
-
-    //TODO
-    public void spin() {
-        
-        initializePanel();
-        
-        
-        
-        //TODO: LOGIKA CELE IGRE
-
-        //postaviti na disabled spin, plus i minus btn dok se ne zavrsi spin, pa onda vratiti
-        //1.update user - skinuti mu bet sa balansa
-        //2.popuniti matricu random vrednostima
-        //3.napraviti sPosition(id, symbol, position) objekat za svako polje u matrici i sacuvati ih sve u bazi
     }
 
     //ovo ce ici u poslovnu logiku? pa odatle uraditi setMat() za ovu klasu
@@ -125,7 +104,6 @@ public final class GUIVideoSlotController {
         }
     }
 
-    //TODO
     void setImages() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 5; y++) {
@@ -152,6 +130,93 @@ public final class GUIVideoSlotController {
         String location = "assets/images/";
         String fileName = name + ".png";
         return new Image(location + fileName, 140, 140, false, true);
+    }
+    
+    private void disableButtons() {
+        this.fxmlDocumentController.btnMinus.setDisable(true);
+        this.fxmlDocumentController.btnPlus.setDisable(true);
+        this.fxmlDocumentController.btnSpin.setDisable(true);
+    }
+    
+    private void enableButtons() {
+        this.fxmlDocumentController.btnMinus.setDisable(false);
+        this.fxmlDocumentController.btnPlus.setDisable(false);
+        this.fxmlDocumentController.btnSpin.setDisable(false);
+    }
+
+    boolean saveSPositions() {
+        List<SPosition> sPositions = new ArrayList<>();
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 5; y++) {
+                SPosition sp = new SPosition();
+                sp.setSymbolId(symbols.get(mat[x][y]).getId());
+                for (Position p : positions) {
+                    if (p.getX() == x && p.getY() == y) {
+                        sp.setPositionId(p.getId());
+                    }
+                }
+                //ispraviti ovo za spin id
+                //mozda treba i game id da se postavi
+                sp.setSpinId(1);
+                sPositions.add(sp);
+            }
+        }
+
+        transferObject.getSPositions().clear();
+        transferObject.getSPositions().addAll(sPositions);
+        executeSO("saveSPositions");
+        return transferObject.isSignal();
+    }
+
+    public void plus() {
+        if (betValuesIndex + 1 < betValues.size()) {
+            betValuesIndex++;
+            setBetLabel();
+        }
+    }
+
+    public void minus() {
+        if (betValuesIndex - 1 >= 0) {
+            betValuesIndex--;
+            setBetLabel();
+        }
+    }
+
+    //TODO
+    public void spin() {
+
+        //TODO: LOGIKA CELE IGRE
+        //postaviti na disabled spin, plus i minus btn dok se ne zavrsi spin, pa onda vratiti
+        disableButtons();
+        //1.update user - skinuti mu bet sa balansa
+        //if(!reduceUserBalance())
+        //  return;
+        //2.popuniti matricu random vrednostima
+        initializePanel();
+        //3.napraviti sPosition(id, symbol, position) objekat za svako polje u matrici i sacuvati ih sve u bazi
+        if(!saveSPositions()){
+            //prikazati error message
+            return;
+        }
+        
+        
+        
+        
+        //na kraju
+        enableButtons();
+            
+    }
+
+    public void executeSO(String operation) {
+        if (operation.equals("getSymbols")) {
+            transferObject = serverController.getSymbols(transferObject);
+        }
+        if (operation.equals("getPositions")) {
+            transferObject = serverController.getPositions(transferObject);
+        }
+        if (operation.equals("saveSPositions")) {
+            transferObject = serverController.saveSPositions(transferObject);
+        }
     }
 
 }
