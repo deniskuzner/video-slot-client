@@ -19,11 +19,15 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="user" type="{http://Server/}user" minOccurs="0"/>
  *         &lt;element name="symbols" type="{http://Server/}symbol" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="positions" type="{http://Server/}position" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="linePayouts" type="{http://Server/}linePayout" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="sPositions" type="{http://Server/}sPosition" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="spinLinePayouts" type="{http://Server/}spinLinePayout" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="signal" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="userObject" type="{http://Server/}user" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,22 +38,56 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "webServerTransferObject", propOrder = {
+    "user",
     "symbols",
     "positions",
+    "linePayouts",
     "sPositions",
+    "spinLinePayouts",
     "message",
-    "signal"
+    "signal",
+    "userObject"
 })
 public class WebServerTransferObject {
 
+    protected User user;
     @XmlElement(nillable = true)
     protected List<Symbol> symbols;
     @XmlElement(nillable = true)
     protected List<Position> positions;
     @XmlElement(nillable = true)
+    protected List<LinePayout> linePayouts;
+    @XmlElement(nillable = true)
     protected List<SPosition> sPositions;
+    @XmlElement(nillable = true)
+    protected List<SpinLinePayout> spinLinePayouts;
     protected String message;
     protected boolean signal;
+    protected User userObject;
+
+    /**
+     * Gets the value of the user property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link User }
+     *     
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets the value of the user property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link User }
+     *     
+     */
+    public void setUser(User value) {
+        this.user = value;
+    }
 
     /**
      * Gets the value of the symbols property.
@@ -110,6 +148,35 @@ public class WebServerTransferObject {
     }
 
     /**
+     * Gets the value of the linePayouts property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the linePayouts property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getLinePayouts().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link LinePayout }
+     * 
+     * 
+     */
+    public List<LinePayout> getLinePayouts() {
+        if (linePayouts == null) {
+            linePayouts = new ArrayList<LinePayout>();
+        }
+        return this.linePayouts;
+    }
+
+    /**
      * Gets the value of the sPositions property.
      * 
      * <p>
@@ -136,6 +203,35 @@ public class WebServerTransferObject {
             sPositions = new ArrayList<SPosition>();
         }
         return this.sPositions;
+    }
+
+    /**
+     * Gets the value of the spinLinePayouts property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the spinLinePayouts property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getSpinLinePayouts().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link SpinLinePayout }
+     * 
+     * 
+     */
+    public List<SpinLinePayout> getSpinLinePayouts() {
+        if (spinLinePayouts == null) {
+            spinLinePayouts = new ArrayList<SpinLinePayout>();
+        }
+        return this.spinLinePayouts;
     }
 
     /**
@@ -176,6 +272,30 @@ public class WebServerTransferObject {
      */
     public void setSignal(boolean value) {
         this.signal = value;
+    }
+
+    /**
+     * Gets the value of the userObject property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link User }
+     *     
+     */
+    public User getUserObject() {
+        return userObject;
+    }
+
+    /**
+     * Sets the value of the userObject property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link User }
+     *     
+     */
+    public void setUserObject(User value) {
+        this.userObject = value;
     }
 
 }

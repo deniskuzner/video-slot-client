@@ -45,6 +45,20 @@ public interface ServerController {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getLinePayouts", targetNamespace = "http://Server/", className = "Server_client.GetLinePayouts")
+    @ResponseWrapper(localName = "getLinePayoutsResponse", targetNamespace = "http://Server/", className = "Server_client.GetLinePayoutsResponse")
+    public WebServerTransferObject getLinePayouts(
+        @WebParam(name = "arg0", targetNamespace = "")
+        WebServerTransferObject arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns Server_client.WebServerTransferObject
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "saveSPositions", targetNamespace = "http://Server/", className = "Server_client.SaveSPositions")
     @ResponseWrapper(localName = "saveSPositionsResponse", targetNamespace = "http://Server/", className = "Server_client.SaveSPositionsResponse")
     public WebServerTransferObject saveSPositions(
@@ -62,6 +76,20 @@ public interface ServerController {
     @RequestWrapper(localName = "getPositions", targetNamespace = "http://Server/", className = "Server_client.GetPositions")
     @ResponseWrapper(localName = "getPositionsResponse", targetNamespace = "http://Server/", className = "Server_client.GetPositionsResponse")
     public WebServerTransferObject getPositions(
+        @WebParam(name = "arg0", targetNamespace = "")
+        WebServerTransferObject arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns Server_client.WebServerTransferObject
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateUser", targetNamespace = "http://Server/", className = "Server_client.UpdateUser")
+    @ResponseWrapper(localName = "updateUserResponse", targetNamespace = "http://Server/", className = "Server_client.UpdateUserResponse")
+    public WebServerTransferObject updateUser(
         @WebParam(name = "arg0", targetNamespace = "")
         WebServerTransferObject arg0);
 

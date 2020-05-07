@@ -25,11 +25,15 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _GetSymbols_QNAME = new QName("http://Server/", "getSymbols");
+    private final static QName _GetLinePayouts_QNAME = new QName("http://Server/", "getLinePayouts");
     private final static QName _GetPositionsResponse_QNAME = new QName("http://Server/", "getPositionsResponse");
     private final static QName _SaveSPositions_QNAME = new QName("http://Server/", "saveSPositions");
     private final static QName _GetSymbolsResponse_QNAME = new QName("http://Server/", "getSymbolsResponse");
     private final static QName _SaveSPositionsResponse_QNAME = new QName("http://Server/", "saveSPositionsResponse");
+    private final static QName _UpdateUserResponse_QNAME = new QName("http://Server/", "updateUserResponse");
     private final static QName _GetPositions_QNAME = new QName("http://Server/", "getPositions");
+    private final static QName _UpdateUser_QNAME = new QName("http://Server/", "updateUser");
+    private final static QName _GetLinePayoutsResponse_QNAME = new QName("http://Server/", "getLinePayoutsResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: Server_client
@@ -71,11 +75,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetLinePayouts }
+     * 
+     */
+    public GetLinePayouts createGetLinePayouts() {
+        return new GetLinePayouts();
+    }
+
+    /**
      * Create an instance of {@link GetSymbols }
      * 
      */
     public GetSymbols createGetSymbols() {
         return new GetSymbols();
+    }
+
+    /**
+     * Create an instance of {@link GetLinePayoutsResponse }
+     * 
+     */
+    public GetLinePayoutsResponse createGetLinePayoutsResponse() {
+        return new GetLinePayoutsResponse();
     }
 
     /**
@@ -87,11 +107,51 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UpdateUser }
+     * 
+     */
+    public UpdateUser createUpdateUser() {
+        return new UpdateUser();
+    }
+
+    /**
+     * Create an instance of {@link UpdateUserResponse }
+     * 
+     */
+    public UpdateUserResponse createUpdateUserResponse() {
+        return new UpdateUserResponse();
+    }
+
+    /**
      * Create an instance of {@link Symbol }
      * 
      */
     public Symbol createSymbol() {
         return new Symbol();
+    }
+
+    /**
+     * Create an instance of {@link SpinLinePayout }
+     * 
+     */
+    public SpinLinePayout createSpinLinePayout() {
+        return new SpinLinePayout();
+    }
+
+    /**
+     * Create an instance of {@link WebServerTransferObject }
+     * 
+     */
+    public WebServerTransferObject createWebServerTransferObject() {
+        return new WebServerTransferObject();
+    }
+
+    /**
+     * Create an instance of {@link LinePayout }
+     * 
+     */
+    public LinePayout createLinePayout() {
+        return new LinePayout();
     }
 
     /**
@@ -111,11 +171,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link WebServerTransferObject }
+     * Create an instance of {@link User }
      * 
      */
-    public WebServerTransferObject createWebServerTransferObject() {
-        return new WebServerTransferObject();
+    public User createUser() {
+        return new User();
     }
 
     /**
@@ -125,6 +185,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Server/", name = "getSymbols")
     public JAXBElement<GetSymbols> createGetSymbols(GetSymbols value) {
         return new JAXBElement<GetSymbols>(_GetSymbols_QNAME, GetSymbols.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetLinePayouts }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Server/", name = "getLinePayouts")
+    public JAXBElement<GetLinePayouts> createGetLinePayouts(GetLinePayouts value) {
+        return new JAXBElement<GetLinePayouts>(_GetLinePayouts_QNAME, GetLinePayouts.class, null, value);
     }
 
     /**
@@ -164,12 +233,39 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Server/", name = "updateUserResponse")
+    public JAXBElement<UpdateUserResponse> createUpdateUserResponse(UpdateUserResponse value) {
+        return new JAXBElement<UpdateUserResponse>(_UpdateUserResponse_QNAME, UpdateUserResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetPositions }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://Server/", name = "getPositions")
     public JAXBElement<GetPositions> createGetPositions(GetPositions value) {
         return new JAXBElement<GetPositions>(_GetPositions_QNAME, GetPositions.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Server/", name = "updateUser")
+    public JAXBElement<UpdateUser> createUpdateUser(UpdateUser value) {
+        return new JAXBElement<UpdateUser>(_UpdateUser_QNAME, UpdateUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetLinePayoutsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Server/", name = "getLinePayoutsResponse")
+    public JAXBElement<GetLinePayoutsResponse> createGetLinePayoutsResponse(GetLinePayoutsResponse value) {
+        return new JAXBElement<GetLinePayoutsResponse>(_GetLinePayoutsResponse_QNAME, GetLinePayoutsResponse.class, null, value);
     }
 
 }

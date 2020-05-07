@@ -5,12 +5,15 @@
  */
 package GUIVideoSlot;
 
+import GUIMain.GUIMainController;
 import java.net.URL;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -19,6 +22,7 @@ import javafx.stage.Stage;
 public class SSFX1 extends Application {
 
     FXMLDocumentController fxmlDocumentController;
+    GUIMainController guiMainController;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -33,6 +37,16 @@ public class SSFX1 extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Video Slot");
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                guiMainController.setUser();
+            }
+        });
+    }
+
+    public void setGuiMainController(GUIMainController guiMainController) {
+        this.guiMainController = guiMainController;
     }
 
 }

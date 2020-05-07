@@ -7,20 +7,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for sPosition complex type.
+ * <p>Java class for spinLinePayout complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="sPosition">
+ * &lt;complexType name="spinLinePayout">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="gameId" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="positionId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="linePayoutId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="spinId" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="symbolId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -30,20 +28,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sPosition", propOrder = {
+@XmlType(name = "spinLinePayout", propOrder = {
     "gameId",
-    "id",
-    "positionId",
-    "spinId",
-    "symbolId"
+    "linePayoutId",
+    "spinId"
 })
-public class SPosition {
+public class SpinLinePayout {
 
     protected int gameId;
-    protected int id;
-    protected int positionId;
+    protected int linePayoutId;
     protected int spinId;
-    protected int symbolId;
 
     /**
      * Gets the value of the gameId property.
@@ -62,35 +56,19 @@ public class SPosition {
     }
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the linePayoutId property.
      * 
      */
-    public int getId() {
-        return id;
+    public int getLinePayoutId() {
+        return linePayoutId;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the linePayoutId property.
      * 
      */
-    public void setId(int value) {
-        this.id = value;
-    }
-
-    /**
-     * Gets the value of the positionId property.
-     * 
-     */
-    public int getPositionId() {
-        return positionId;
-    }
-
-    /**
-     * Sets the value of the positionId property.
-     * 
-     */
-    public void setPositionId(int value) {
-        this.positionId = value;
+    public void setLinePayoutId(int value) {
+        this.linePayoutId = value;
     }
 
     /**
@@ -107,22 +85,6 @@ public class SPosition {
      */
     public void setSpinId(int value) {
         this.spinId = value;
-    }
-
-    /**
-     * Gets the value of the symbolId property.
-     * 
-     */
-    public int getSymbolId() {
-        return symbolId;
-    }
-
-    /**
-     * Sets the value of the symbolId property.
-     * 
-     */
-    public void setSymbolId(int value) {
-        this.symbolId = value;
     }
 
 }

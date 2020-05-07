@@ -36,6 +36,7 @@ public class GUIMainController {
     public void play() {
         try {
             GUIVideoSlot.SSFX1 ssfx1 = new GUIVideoSlot.SSFX1();
+            ssfx1.setGuiMainController(this);
             ssfx1.start(new Stage());
         } catch (Exception ex) {
             Logger.getLogger(GUIMainController.class.getName()).log(Level.SEVERE, null, ex);
