@@ -18,9 +18,9 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="gameId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="positionId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="position" type="{http://Server/}position" minOccurs="0"/>
  *         &lt;element name="spinId" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="symbolId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="symbol" type="{http://Server/}symbol" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "sPosition", propOrder = {
     "gameId",
     "id",
-    "positionId",
+    "position",
     "spinId",
-    "symbolId"
+    "symbol"
 })
 public class SPosition {
 
     protected int gameId;
     protected int id;
-    protected int positionId;
+    protected Position position;
     protected int spinId;
-    protected int symbolId;
+    protected Symbol symbol;
 
     /**
      * Gets the value of the gameId property.
@@ -78,19 +78,27 @@ public class SPosition {
     }
 
     /**
-     * Gets the value of the positionId property.
+     * Gets the value of the position property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Position }
+     *     
      */
-    public int getPositionId() {
-        return positionId;
+    public Position getPosition() {
+        return position;
     }
 
     /**
-     * Sets the value of the positionId property.
+     * Sets the value of the position property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Position }
+     *     
      */
-    public void setPositionId(int value) {
-        this.positionId = value;
+    public void setPosition(Position value) {
+        this.position = value;
     }
 
     /**
@@ -110,19 +118,27 @@ public class SPosition {
     }
 
     /**
-     * Gets the value of the symbolId property.
+     * Gets the value of the symbol property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Symbol }
+     *     
      */
-    public int getSymbolId() {
-        return symbolId;
+    public Symbol getSymbol() {
+        return symbol;
     }
 
     /**
-     * Sets the value of the symbolId property.
+     * Sets the value of the symbol property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Symbol }
+     *     
      */
-    public void setSymbolId(int value) {
-        this.symbolId = value;
+    public void setSymbol(Symbol value) {
+        this.symbol = value;
     }
 
 }

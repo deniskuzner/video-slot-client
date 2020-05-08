@@ -25,9 +25,10 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="linePayouts" type="{http://Server/}linePayout" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="sPositions" type="{http://Server/}sPosition" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="spinLinePayouts" type="{http://Server/}spinLinePayout" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="spin" type="{http://Server/}spin" minOccurs="0"/>
+ *         &lt;element name="gameId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="signal" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="userObject" type="{http://Server/}user" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -44,9 +45,10 @@ import javax.xml.bind.annotation.XmlType;
     "linePayouts",
     "sPositions",
     "spinLinePayouts",
+    "spin",
+    "gameId",
     "message",
-    "signal",
-    "userObject"
+    "signal"
 })
 public class WebServerTransferObject {
 
@@ -61,9 +63,10 @@ public class WebServerTransferObject {
     protected List<SPosition> sPositions;
     @XmlElement(nillable = true)
     protected List<SpinLinePayout> spinLinePayouts;
+    protected Spin spin;
+    protected int gameId;
     protected String message;
     protected boolean signal;
-    protected User userObject;
 
     /**
      * Gets the value of the user property.
@@ -235,6 +238,46 @@ public class WebServerTransferObject {
     }
 
     /**
+     * Gets the value of the spin property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Spin }
+     *     
+     */
+    public Spin getSpin() {
+        return spin;
+    }
+
+    /**
+     * Sets the value of the spin property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Spin }
+     *     
+     */
+    public void setSpin(Spin value) {
+        this.spin = value;
+    }
+
+    /**
+     * Gets the value of the gameId property.
+     * 
+     */
+    public int getGameId() {
+        return gameId;
+    }
+
+    /**
+     * Sets the value of the gameId property.
+     * 
+     */
+    public void setGameId(int value) {
+        this.gameId = value;
+    }
+
+    /**
      * Gets the value of the message property.
      * 
      * @return
@@ -272,30 +315,6 @@ public class WebServerTransferObject {
      */
     public void setSignal(boolean value) {
         this.signal = value;
-    }
-
-    /**
-     * Gets the value of the userObject property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link User }
-     *     
-     */
-    public User getUserObject() {
-        return userObject;
-    }
-
-    /**
-     * Sets the value of the userObject property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link User }
-     *     
-     */
-    public void setUserObject(User value) {
-        this.userObject = value;
     }
 
 }

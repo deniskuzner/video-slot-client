@@ -14,6 +14,7 @@ import Server_client.Position;
 import Server_client.SPosition;
 import Server_client.ServerController;
 import Server_client.ServerController_Service;
+import Server_client.Spin;
 import Server_client.SpinLinePayout;
 import Server_client.Symbol;
 import Server_client.WebServerTransferObject;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -47,7 +47,9 @@ public final class GUIVideoSlotController {
     int mat[][];
     List<Symbol> symbols;
     List<Position> positions;
+    List<SPosition> sPositions;
     List<LinePayout> linePayouts;
+    int spinId;
 
     public GUIVideoSlotController(FXMLDocumentController fxmlDocumentController) {
         this.fxmlDocumentController = fxmlDocumentController;
@@ -65,6 +67,7 @@ public final class GUIVideoSlotController {
         mat = new int[3][5];
         getSymbols();
         getPositions();
+        sPositions = new ArrayList<>();
         getLinePayouts();
 
         populateForm();
@@ -91,7 +94,6 @@ public final class GUIVideoSlotController {
     void getLinePayouts() {
         executeSO("getLinePayouts");
         linePayouts = transferObject.getLinePayouts();
-        System.out.println("LINE PAYOUTS SIZE: " + linePayouts.size());
     }
 
     void populateForm() {
@@ -114,32 +116,36 @@ public final class GUIVideoSlotController {
     }
 
     void initializePanel() {
-        createSpin();
+        randomizeMatValues();
         setImages();
     }
-
-    //ovo ce ici u poslovnu logiku? pa odatle uraditi setMat() za ovu klasu
-    void createSpin() {
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 5; y++) {
-                mat[x][y] = new Random().nextInt(symbols.size());
-            }
-        }
-        
-        //ovde ce ici poziv SO npr. createSpin();
-        //koji ce da sacuva SPIN zajedno sa SPOSITIONS listom
-        //u transfer objektu ce da se prosledi i bet, gameId, mozda cak i symbols i positions
-        
-        //rezultat: mat = transferObject.getMat();
-        //spinId = transferObject.spinId;
+    
+    void randomizeMatValues(){
+        transferObject.getSymbols().clear();
+        transferObject.getSymbols().addAll(symbols);
+        transferObject.getPositions().clear();
+        transferObject.getPositions().addAll(positions);
+        executeSO("randomizeMatValues");
+        sPositions = transferObject.getSPositions();
+        convertSPositionsToMat();
     }
-
+    
+    void convertSPositionsToMat() {
+        for (SPosition sPosition : sPositions) {
+            mat[sPosition.getPosition().getX()][sPosition.getPosition().getY()] = sPosition.getSymbol().getId();
+        }
+    }
+   
     void setImages() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 5; y++) {
-                setImage(getImage(symbols.get(mat[x][y]).getName()), x, y);
+                setImage(getImage(getSymbolNameById(mat[x][y])), x, y);
             }
         }
+    }
+    
+    String getSymbolNameById(int id) {
+        return symbols.stream().filter(s -> s.getId() == id).findFirst().get().getName();
     }
 
     void setImage(Image image, int x, int y) {
@@ -174,15 +180,27 @@ public final class GUIVideoSlotController {
         this.fxmlDocumentController.btnSpin.setDisable(false);
     }
 
+    boolean createSpin() {
+        Spin spin = new Spin();
+        //postaviti pravi gameId
+        spin.setGameId(1);
+        spin.setBet(betValues.get(betValuesIndex));
+        spin.getSPositions().addAll(sPositions);
+        transferObject.setSpin(spin);
+        executeSO("createSpin");
+        spinId = transferObject.getSpin().getId();
+        return transferObject.isSignal();
+    }
+    
     boolean saveSPositions() {
         List<SPosition> sPositions = new ArrayList<>();
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 5; y++) {
                 SPosition sp = new SPosition();
-                sp.setSymbolId(symbols.get(mat[x][y]).getId());
+                //sp.setSymbolId(symbols.get(mat[x][y]).getId());
                 for (Position p : positions) {
                     if (p.getX() == x && p.getY() == y) {
-                        sp.setPositionId(p.getId());
+                       // sp.setPositionId(p.getId());
                     }
                 }
                 //ispraviti ovo za spin id
@@ -211,7 +229,7 @@ public final class GUIVideoSlotController {
         serverUser.setId(sessionUser.getId());
         serverUser.setBalance(newBalance);
 
-        transferObject.setUserObject(serverUser);
+        transferObject.setUser(serverUser);
         executeSO("updateUser");
         if (transferObject.isSignal()) {
             sessionUser.setBalance(newBalance);
@@ -337,27 +355,24 @@ public final class GUIVideoSlotController {
         //3.RESENO: popuniti matricu random vrednostima i postaviti slike, mozda initializePanel() pozvati vise puta
         //u okviru neke metode koja ce da ulepsa spin
         initializePanel();
-        //4.mozda prvo sacuvati u bazi spin koji ima podesen bet iznos, mozda trenutno vreme
-        //ili sacuvati SPIN zajedno sa svim SPosition objektima???
-
-        //5.RESENO: napraviti sPosition(id, symbol, position) objekat za svako polje u matrici i sacuvati ih sve u bazi
-        if (!saveSPositions()) {
+        //4.RESENO: sacuvati SPIN zajedno sa svim SPosition objektima
+        if(!createSpin()) {
             message("An error occurred!");
             return;
         }
-
+        
         //6.prolaz kroz matricu kako bi se proverile vrednosti na 5 linija koje se gledaju
         //ako postoje dobitne linije, izvlaci se iz baze LinePayout za svaku (preko WHERE arrayLength = ? AND symbolId = ?)
         //i na osnovu toga se cuva SpinLinePayout za svaku dobitnu liniju
         //postavljanje css klasa za obojeni border na svako polje u dobitnoj liniji
-        checkLines();
+//        checkLines();
 
         //7.racuna se win
         //prolaz kroz SpinLinePayout listu, sabiranje dobitaka i cuvanje u bazi objekta Win
         //postavljanje win labele na taj iznos
         
-        setWinLabel();
-        win = 0;
+//        setWinLabel();
+//        win = 0;
         //8.ponovo update usera sa dodavanjem win-a na balance
         //ako je win > 0
         //8.1. pitanje da li zeli da pogadja boju? da -> otvara novu formu, ne -> radi update usera
@@ -377,11 +392,17 @@ public final class GUIVideoSlotController {
         if (operation.equals("getLinePayouts")) {
             transferObject = serverController.getLinePayouts(transferObject);
         }
+        if (operation.equals("randomizeMatValues")) {
+            transferObject = serverController.randomizeMathValues(transferObject);
+        }
         if (operation.equals("saveSPositions")) {
             transferObject = serverController.saveSPositions(transferObject);
         }
         if (operation.equals("updateUser")) {
             transferObject = serverController.updateUser(transferObject);
+        }
+        if (operation.equals("createSpin")) {
+            transferObject = serverController.createSpin(transferObject);
         }
     }
 

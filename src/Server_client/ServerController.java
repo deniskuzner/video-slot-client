@@ -73,6 +73,34 @@ public interface ServerController {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createSpin", targetNamespace = "http://Server/", className = "Server_client.CreateSpin")
+    @ResponseWrapper(localName = "createSpinResponse", targetNamespace = "http://Server/", className = "Server_client.CreateSpinResponse")
+    public WebServerTransferObject createSpin(
+        @WebParam(name = "arg0", targetNamespace = "")
+        WebServerTransferObject arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns Server_client.WebServerTransferObject
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "randomizeMathValues", targetNamespace = "http://Server/", className = "Server_client.RandomizeMathValues")
+    @ResponseWrapper(localName = "randomizeMathValuesResponse", targetNamespace = "http://Server/", className = "Server_client.RandomizeMathValuesResponse")
+    public WebServerTransferObject randomizeMathValues(
+        @WebParam(name = "arg0", targetNamespace = "")
+        WebServerTransferObject arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns Server_client.WebServerTransferObject
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getPositions", targetNamespace = "http://Server/", className = "Server_client.GetPositions")
     @ResponseWrapper(localName = "getPositionsResponse", targetNamespace = "http://Server/", className = "Server_client.GetPositionsResponse")
     public WebServerTransferObject getPositions(
