@@ -59,20 +59,6 @@ public interface ServerController {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "saveSPositions", targetNamespace = "http://Server/", className = "Server_client.SaveSPositions")
-    @ResponseWrapper(localName = "saveSPositionsResponse", targetNamespace = "http://Server/", className = "Server_client.SaveSPositionsResponse")
-    public WebServerTransferObject saveSPositions(
-        @WebParam(name = "arg0", targetNamespace = "")
-        WebServerTransferObject arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns Server_client.WebServerTransferObject
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "createSpin", targetNamespace = "http://Server/", className = "Server_client.CreateSpin")
     @ResponseWrapper(localName = "createSpinResponse", targetNamespace = "http://Server/", className = "Server_client.CreateSpinResponse")
     public WebServerTransferObject createSpin(
@@ -118,6 +104,34 @@ public interface ServerController {
     @RequestWrapper(localName = "updateUser", targetNamespace = "http://Server/", className = "Server_client.UpdateUser")
     @ResponseWrapper(localName = "updateUserResponse", targetNamespace = "http://Server/", className = "Server_client.UpdateUserResponse")
     public WebServerTransferObject updateUser(
+        @WebParam(name = "arg0", targetNamespace = "")
+        WebServerTransferObject arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns Server_client.WebServerTransferObject
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createGame", targetNamespace = "http://Server/", className = "Server_client.CreateGame")
+    @ResponseWrapper(localName = "createGameResponse", targetNamespace = "http://Server/", className = "Server_client.CreateGameResponse")
+    public WebServerTransferObject createGame(
+        @WebParam(name = "arg0", targetNamespace = "")
+        WebServerTransferObject arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns Server_client.WebServerTransferObject
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createSpinLinePayouts", targetNamespace = "http://Server/", className = "Server_client.CreateSpinLinePayouts")
+    @ResponseWrapper(localName = "createSpinLinePayoutsResponse", targetNamespace = "http://Server/", className = "Server_client.CreateSpinLinePayoutsResponse")
+    public WebServerTransferObject createSpinLinePayouts(
         @WebParam(name = "arg0", targetNamespace = "")
         WebServerTransferObject arg0);
 

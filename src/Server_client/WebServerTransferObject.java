@@ -26,7 +26,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="sPositions" type="{http://Server/}sPosition" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="spinLinePayouts" type="{http://Server/}spinLinePayout" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="spin" type="{http://Server/}spin" minOccurs="0"/>
- *         &lt;element name="gameId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="game" type="{http://Server/}game" minOccurs="0"/>
+ *         &lt;element name="win" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="signal" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
@@ -46,7 +47,8 @@ import javax.xml.bind.annotation.XmlType;
     "sPositions",
     "spinLinePayouts",
     "spin",
-    "gameId",
+    "game",
+    "win",
     "message",
     "signal"
 })
@@ -64,7 +66,8 @@ public class WebServerTransferObject {
     @XmlElement(nillable = true)
     protected List<SpinLinePayout> spinLinePayouts;
     protected Spin spin;
-    protected int gameId;
+    protected Game game;
+    protected int win;
     protected String message;
     protected boolean signal;
 
@@ -262,19 +265,43 @@ public class WebServerTransferObject {
     }
 
     /**
-     * Gets the value of the gameId property.
+     * Gets the value of the game property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Game }
+     *     
      */
-    public int getGameId() {
-        return gameId;
+    public Game getGame() {
+        return game;
     }
 
     /**
-     * Sets the value of the gameId property.
+     * Sets the value of the game property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Game }
+     *     
+     */
+    public void setGame(Game value) {
+        this.game = value;
+    }
+
+    /**
+     * Gets the value of the win property.
      * 
      */
-    public void setGameId(int value) {
-        this.gameId = value;
+    public int getWin() {
+        return win;
+    }
+
+    /**
+     * Sets the value of the win property.
+     * 
+     */
+    public void setWin(int value) {
+        this.win = value;
     }
 
     /**

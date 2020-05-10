@@ -24,11 +24,12 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SaveSPositions_QNAME = new QName("http://Server/", "saveSPositions");
+    private final static QName _CreateSpinLinePayoutsResponse_QNAME = new QName("http://Server/", "createSpinLinePayoutsResponse");
     private final static QName _CreateSpinResponse_QNAME = new QName("http://Server/", "createSpinResponse");
-    private final static QName _SaveSPositionsResponse_QNAME = new QName("http://Server/", "saveSPositionsResponse");
+    private final static QName _CreateGameResponse_QNAME = new QName("http://Server/", "createGameResponse");
     private final static QName _UpdateUserResponse_QNAME = new QName("http://Server/", "updateUserResponse");
     private final static QName _GetPositions_QNAME = new QName("http://Server/", "getPositions");
+    private final static QName _CreateGame_QNAME = new QName("http://Server/", "createGame");
     private final static QName _GetLinePayoutsResponse_QNAME = new QName("http://Server/", "getLinePayoutsResponse");
     private final static QName _GetSymbols_QNAME = new QName("http://Server/", "getSymbols");
     private final static QName _GetLinePayouts_QNAME = new QName("http://Server/", "getLinePayouts");
@@ -38,6 +39,7 @@ public class ObjectFactory {
     private final static QName _RandomizeMathValuesResponse_QNAME = new QName("http://Server/", "randomizeMathValuesResponse");
     private final static QName _RandomizeMathValues_QNAME = new QName("http://Server/", "randomizeMathValues");
     private final static QName _UpdateUser_QNAME = new QName("http://Server/", "updateUser");
+    private final static QName _CreateSpinLinePayouts_QNAME = new QName("http://Server/", "createSpinLinePayouts");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: Server_client
@@ -87,6 +89,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CreateSpinLinePayouts }
+     * 
+     */
+    public CreateSpinLinePayouts createCreateSpinLinePayouts() {
+        return new CreateSpinLinePayouts();
+    }
+
+    /**
      * Create an instance of {@link UpdateUser }
      * 
      */
@@ -111,6 +121,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CreateSpinLinePayoutsResponse }
+     * 
+     */
+    public CreateSpinLinePayoutsResponse createCreateSpinLinePayoutsResponse() {
+        return new CreateSpinLinePayoutsResponse();
+    }
+
+    /**
      * Create an instance of {@link CreateSpinResponse }
      * 
      */
@@ -119,19 +137,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SaveSPositionsResponse }
+     * Create an instance of {@link CreateGame }
      * 
      */
-    public SaveSPositionsResponse createSaveSPositionsResponse() {
-        return new SaveSPositionsResponse();
-    }
-
-    /**
-     * Create an instance of {@link SaveSPositions }
-     * 
-     */
-    public SaveSPositions createSaveSPositions() {
-        return new SaveSPositions();
+    public CreateGame createCreateGame() {
+        return new CreateGame();
     }
 
     /**
@@ -151,6 +161,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CreateGameResponse }
+     * 
+     */
+    public CreateGameResponse createCreateGameResponse() {
+        return new CreateGameResponse();
+    }
+
+    /**
      * Create an instance of {@link UpdateUserResponse }
      * 
      */
@@ -167,19 +185,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Game }
+     * 
+     */
+    public Game createGame() {
+        return new Game();
+    }
+
+    /**
      * Create an instance of {@link SpinLinePayout }
      * 
      */
     public SpinLinePayout createSpinLinePayout() {
         return new SpinLinePayout();
-    }
-
-    /**
-     * Create an instance of {@link WebServerTransferObject }
-     * 
-     */
-    public WebServerTransferObject createWebServerTransferObject() {
-        return new WebServerTransferObject();
     }
 
     /**
@@ -196,6 +214,14 @@ public class ObjectFactory {
      */
     public SPosition createSPosition() {
         return new SPosition();
+    }
+
+    /**
+     * Create an instance of {@link WebServerTransferObject }
+     * 
+     */
+    public WebServerTransferObject createWebServerTransferObject() {
+        return new WebServerTransferObject();
     }
 
     /**
@@ -223,12 +249,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveSPositions }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateSpinLinePayoutsResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://Server/", name = "saveSPositions")
-    public JAXBElement<SaveSPositions> createSaveSPositions(SaveSPositions value) {
-        return new JAXBElement<SaveSPositions>(_SaveSPositions_QNAME, SaveSPositions.class, null, value);
+    @XmlElementDecl(namespace = "http://Server/", name = "createSpinLinePayoutsResponse")
+    public JAXBElement<CreateSpinLinePayoutsResponse> createCreateSpinLinePayoutsResponse(CreateSpinLinePayoutsResponse value) {
+        return new JAXBElement<CreateSpinLinePayoutsResponse>(_CreateSpinLinePayoutsResponse_QNAME, CreateSpinLinePayoutsResponse.class, null, value);
     }
 
     /**
@@ -241,12 +267,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveSPositionsResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateGameResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://Server/", name = "saveSPositionsResponse")
-    public JAXBElement<SaveSPositionsResponse> createSaveSPositionsResponse(SaveSPositionsResponse value) {
-        return new JAXBElement<SaveSPositionsResponse>(_SaveSPositionsResponse_QNAME, SaveSPositionsResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://Server/", name = "createGameResponse")
+    public JAXBElement<CreateGameResponse> createCreateGameResponse(CreateGameResponse value) {
+        return new JAXBElement<CreateGameResponse>(_CreateGameResponse_QNAME, CreateGameResponse.class, null, value);
     }
 
     /**
@@ -265,6 +291,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Server/", name = "getPositions")
     public JAXBElement<GetPositions> createGetPositions(GetPositions value) {
         return new JAXBElement<GetPositions>(_GetPositions_QNAME, GetPositions.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateGame }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Server/", name = "createGame")
+    public JAXBElement<CreateGame> createCreateGame(CreateGame value) {
+        return new JAXBElement<CreateGame>(_CreateGame_QNAME, CreateGame.class, null, value);
     }
 
     /**
@@ -346,6 +381,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Server/", name = "updateUser")
     public JAXBElement<UpdateUser> createUpdateUser(UpdateUser value) {
         return new JAXBElement<UpdateUser>(_UpdateUser_QNAME, UpdateUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateSpinLinePayouts }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Server/", name = "createSpinLinePayouts")
+    public JAXBElement<CreateSpinLinePayouts> createCreateSpinLinePayouts(CreateSpinLinePayouts value) {
+        return new JAXBElement<CreateSpinLinePayouts>(_CreateSpinLinePayouts_QNAME, CreateSpinLinePayouts.class, null, value);
     }
 
 }

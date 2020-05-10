@@ -9,13 +9,13 @@ import Domain.User;
 import GUIVideoSlot.Listeners.MinusListener;
 import GUIVideoSlot.Listeners.PlusListener;
 import GUIVideoSlot.Listeners.SpinListener;
+import Server_client.Game;
 import Server_client.LinePayout;
 import Server_client.Position;
 import Server_client.SPosition;
 import Server_client.ServerController;
 import Server_client.ServerController_Service;
 import Server_client.Spin;
-import Server_client.SpinLinePayout;
 import Server_client.Symbol;
 import Server_client.WebServerTransferObject;
 import Session.Session;
@@ -23,7 +23,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -49,6 +48,7 @@ public final class GUIVideoSlotController {
     List<Position> positions;
     List<SPosition> sPositions;
     List<LinePayout> linePayouts;
+    Game game;
     int spinId;
 
     public GUIVideoSlotController(FXMLDocumentController fxmlDocumentController) {
@@ -65,9 +65,12 @@ public final class GUIVideoSlotController {
         betValuesIndex = 0;
         win = 0;
         mat = new int[3][5];
+        sPositions = new ArrayList<>();
+        
+        
+        createGame();
         getSymbols();
         getPositions();
-        sPositions = new ArrayList<>();
         getLinePayouts();
 
         populateForm();
@@ -79,6 +82,14 @@ public final class GUIVideoSlotController {
         infoAlert.setHeaderText(null);
         infoAlert.setContentText(message);
         infoAlert.showAndWait();
+    }
+    
+    void createGame() {
+        game = new Game();
+        game.setUserId(Session.getInstance().getUser().getId());
+        transferObject.setGame(game);
+        executeSO("createGame");
+        game = transferObject.getGame();
     }
 
     void getSymbols() {
@@ -113,6 +124,7 @@ public final class GUIVideoSlotController {
 
     void setWinLabel() {
         fxmlDocumentController.lblWin.setText(win + " RSD");
+        win = 0;
     }
 
     void initializePanel() {
@@ -125,6 +137,7 @@ public final class GUIVideoSlotController {
         transferObject.getSymbols().addAll(symbols);
         transferObject.getPositions().clear();
         transferObject.getPositions().addAll(positions);
+        transferObject.setGame(game);
         executeSO("randomizeMatValues");
         sPositions = transferObject.getSPositions();
         convertSPositionsToMat();
@@ -182,8 +195,7 @@ public final class GUIVideoSlotController {
 
     boolean createSpin() {
         Spin spin = new Spin();
-        //postaviti pravi gameId
-        spin.setGameId(1);
+        spin.setGameId(game.getId());
         spin.setBet(betValues.get(betValuesIndex));
         spin.getSPositions().addAll(sPositions);
         transferObject.setSpin(spin);
@@ -192,31 +204,6 @@ public final class GUIVideoSlotController {
         return transferObject.isSignal();
     }
     
-    boolean saveSPositions() {
-        List<SPosition> sPositions = new ArrayList<>();
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 5; y++) {
-                SPosition sp = new SPosition();
-                //sp.setSymbolId(symbols.get(mat[x][y]).getId());
-                for (Position p : positions) {
-                    if (p.getX() == x && p.getY() == y) {
-                       // sp.setPositionId(p.getId());
-                    }
-                }
-                //ispraviti ovo za spin id
-                //mozda treba i game id da se postavi
-                sp.setGameId(1);
-                sp.setSpinId(1);
-                sPositions.add(sp);
-            }
-        }
-
-        transferObject.getSPositions().clear();
-        transferObject.getSPositions().addAll(sPositions);
-        executeSO("saveSPositions");
-        return transferObject.isSignal();
-    }
-
     boolean reduceUserBalance() {
         if (!hasBalance()) {
             message("You don't have enough funds on your balance!");
@@ -243,85 +230,36 @@ public final class GUIVideoSlotController {
     boolean hasBalance() {
         return Session.getInstance().getUser().getBalance() >= betValues.get(betValuesIndex);
     }
-
-    //na server
-    void checkLines() {
-        //ovo staviti u PayoutCalculator na serveru
-        //linije 1,2,3
-        List<SpinLinePayout> spinLinePayouts = new ArrayList<>();
-        for (int x = 0; x < 3; x++) {
-            int arrayLength = 1;
-            int symbolId = symbols.get(mat[x][0]).getId();
-            for (int y = 1; y < 5; y++) {
-                if (symbolId == symbols.get(mat[x][y]).getId()) {
-                    arrayLength++;
-                } else {
-                    break;
-                }
-            }
-            
-            addSpinLinePayoutToList(spinLinePayouts, arrayLength, symbolId);
-            System.out.println("LINIJA: " + (x + 1) + ", SIMBOL: " + symbolId + ", DUZINA NIZA: " + arrayLength);
-        }
-
-        //linija 4
-        int arrayLength = 0;
-        int symbolId = symbols.get(mat[0][0]).getId();
-        int x = 0;
-        for (int y = 0; y < 5; y++) {
-            if (symbolId == symbols.get(mat[x][y]).getId()) {
-                arrayLength++;
-            } else {
-                break;
-            }
-            if(y < 2)
-                x++;
-            else
-                x--;
-        }
-        addSpinLinePayoutToList(spinLinePayouts, arrayLength, symbolId);
-        System.out.println("LINIJA: " + 4 + ", SIMBOL: " + symbolId + ", DUZINA NIZA: " + arrayLength);
-
-        //linija 5
-        arrayLength = 0;
-        symbolId = symbols.get(mat[2][0]).getId();
-        x = 2;
-        for (int y = 0; y < 5; y++) {
-            if (symbolId == symbols.get(mat[x][y]).getId()) {
-                arrayLength++;
-            } else {
-                break;
-            }
-            if(y < 2)
-                x--;
-            else
-                x++;
-        }
-        addSpinLinePayoutToList(spinLinePayouts, arrayLength, symbolId);
-        System.out.println("LINIJA: " + 5 + ", SIMBOL: " + symbolId + ", DUZINA NIZA: " + arrayLength);
+    
+    boolean createSpinLinePayouts() {
+        transferObject.getSPositions().clear();
+        transferObject.getSPositions().addAll(sPositions);
+        transferObject.getLinePayouts().clear();
+        transferObject.getLinePayouts().addAll(linePayouts);
         
-        
-        saveSpinLinePayouts(spinLinePayouts);
+        executeSO("createSpinLinePayouts");
+        win = transferObject.getWin();
+        return transferObject.isSignal();
     }
-    //na server
-    void addSpinLinePayoutToList(List<SpinLinePayout> spinLinePayouts, int arrayLength, int symbolId) {
-        Optional<LinePayout> result = linePayouts.stream().filter(l -> l.getArrayLength() == arrayLength && l.getSymbolId() == symbolId).findFirst();
-        LinePayout lp = result.isPresent() ? result.get() : null;
-        
-        if(lp != null) {
-                SpinLinePayout spinLinePayout = new SpinLinePayout();
-                spinLinePayout.setGameId(1);
-                spinLinePayout.setSpinId(1);
-                spinLinePayout.setLinePayoutId(lp.getId());
-                spinLinePayouts.add(spinLinePayout);
-                
-                win += lp.getAmount() * betValues.get(betValuesIndex);
-            }
-    }
-    //na server
-    void saveSpinLinePayouts(List<SpinLinePayout> spinLinePayouts) {
-        System.out.println("SAVE SPIN LINE PAYOUTS SIZE: " + spinLinePayouts.size());
-        System.out.println("WIN: " + win);
+    
+    boolean increaseUserBalance() {
+        //izvojiti sessionUser kao atribut klase
+        User sessionUser = Session.getInstance().getUser();
+        int newBalance = sessionUser.getBalance() + win;
+
+        Server_client.User serverUser = new Server_client.User();
+        serverUser.setId(sessionUser.getId());
+        serverUser.setBalance(newBalance);
+
+        transferObject.setUser(serverUser);
+        executeSO("updateUser");
+        if (transferObject.isSignal()) {
+            sessionUser.setBalance(newBalance);
+            setBalanceLabel();
+        } else {
+            message(transferObject.getMessage());
+        }
+        return transferObject.isSignal();
     }
 
     public void plus() {
@@ -349,7 +287,6 @@ public final class GUIVideoSlotController {
         //1.RESENO: provera da li ima dovoljno sredstava tj. bet > balance ? ako nema -> poruka i return;
         //2.RESENO: update user - skinuti mu bet sa balansa
         if (!reduceUserBalance()) {
-            enableButtons();
             return;
         }
         //3.RESENO: popuniti matricu random vrednostima i postaviti slike, mozda initializePanel() pozvati vise puta
@@ -361,28 +298,35 @@ public final class GUIVideoSlotController {
             return;
         }
         
-        //6.prolaz kroz matricu kako bi se proverile vrednosti na 5 linija koje se gledaju
+        //6.RESENO: prolaz kroz matricu kako bi se proverile vrednosti na 5 linija koje se gledaju
         //ako postoje dobitne linije, izvlaci se iz baze LinePayout za svaku (preko WHERE arrayLength = ? AND symbolId = ?)
         //i na osnovu toga se cuva SpinLinePayout za svaku dobitnu liniju
         //postavljanje css klasa za obojeni border na svako polje u dobitnoj liniji
 //        checkLines();
+        if(!createSpinLinePayouts()){
+            message("An error occurred!");
+            return;
+        }
 
-        //7.racuna se win
+        //7.RESENO: racuna se win
         //prolaz kroz SpinLinePayout listu, sabiranje dobitaka i cuvanje u bazi objekta Win
         //postavljanje win labele na taj iznos
         
-//        setWinLabel();
-//        win = 0;
+        
         //8.ponovo update usera sa dodavanjem win-a na balance
         //ako je win > 0
         //8.1. pitanje da li zeli da pogadja boju? da -> otvara novu formu, ne -> radi update usera
-        //increaseUserBalance();
+        increaseUserBalance();
+        setWinLabel();
         //na kraju
         enableButtons();
 
     }
 
     public void executeSO(String operation) {
+        if (operation.equals("createGame")) {
+            transferObject = serverController.createGame(transferObject);
+        }
         if (operation.equals("getSymbols")) {
             transferObject = serverController.getSymbols(transferObject);
         }
@@ -395,14 +339,14 @@ public final class GUIVideoSlotController {
         if (operation.equals("randomizeMatValues")) {
             transferObject = serverController.randomizeMathValues(transferObject);
         }
-        if (operation.equals("saveSPositions")) {
-            transferObject = serverController.saveSPositions(transferObject);
-        }
         if (operation.equals("updateUser")) {
             transferObject = serverController.updateUser(transferObject);
         }
         if (operation.equals("createSpin")) {
             transferObject = serverController.createSpin(transferObject);
+        }
+        if (operation.equals("createSpinLinePayouts")) {
+            transferObject = serverController.createSpinLinePayouts(transferObject);
         }
     }
 
