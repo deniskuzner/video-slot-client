@@ -10,8 +10,6 @@ import GUIVideoSlot.Listeners.MinusListener;
 import GUIVideoSlot.Listeners.PlusListener;
 import GUIVideoSlot.Listeners.SpinListener;
 import Server_client.Game;
-import Server_client.LinePayout;
-import Server_client.Position;
 import Server_client.SPosition;
 import Server_client.ServerController;
 import Server_client.ServerController_Service;
@@ -45,11 +43,8 @@ public final class GUIVideoSlotController {
     int win;
     int mat[][];
     List<Symbol> symbols;
-    List<Position> positions;
     List<SPosition> sPositions;
-    List<LinePayout> linePayouts;
     Game game;
-    int spinId;
 
     public GUIVideoSlotController(FXMLDocumentController fxmlDocumentController) {
         this.fxmlDocumentController = fxmlDocumentController;
@@ -67,12 +62,9 @@ public final class GUIVideoSlotController {
         mat = new int[3][5];
         sPositions = new ArrayList<>();
         
-        
         createGame();
         getSymbols();
-        getPositions();
-        getLinePayouts();
-
+        
         populateForm();
     }
 
@@ -97,16 +89,6 @@ public final class GUIVideoSlotController {
         symbols = transferObject.getSymbols();
     }
 
-    void getPositions() {
-        executeSO("getPositions");
-        positions = transferObject.getPositions();
-    }
-    
-    void getLinePayouts() {
-        executeSO("getLinePayouts");
-        linePayouts = transferObject.getLinePayouts();
-    }
-
     void populateForm() {
         setBalanceLabel();
         setBetLabel();
@@ -129,18 +111,14 @@ public final class GUIVideoSlotController {
 
     void initializePanel() {
         randomizeMatValues();
+        convertSPositionsToMat();
         setImages();
     }
     
     void randomizeMatValues(){
-        transferObject.getSymbols().clear();
-        transferObject.getSymbols().addAll(symbols);
-        transferObject.getPositions().clear();
-        transferObject.getPositions().addAll(positions);
         transferObject.setGame(game);
         executeSO("randomizeMatValues");
         sPositions = transferObject.getSPositions();
-        convertSPositionsToMat();
     }
     
     void convertSPositionsToMat() {
@@ -193,75 +171,10 @@ public final class GUIVideoSlotController {
         this.fxmlDocumentController.btnSpin.setDisable(false);
     }
 
-    boolean createSpin() {
-        Spin spin = new Spin();
-        spin.setGameId(game.getId());
-        spin.setBet(betValues.get(betValuesIndex));
-        spin.getSPositions().addAll(sPositions);
-        transferObject.setSpin(spin);
-        executeSO("createSpin");
-        spinId = transferObject.getSpin().getId();
-        return transferObject.isSignal();
-    }
-    
-    boolean reduceUserBalance() {
-        if (!hasBalance()) {
-            message("You don't have enough funds on your balance!");
-            return false;
-        }
-        User sessionUser = Session.getInstance().getUser();
-        int newBalance = sessionUser.getBalance() - betValues.get(betValuesIndex);
-
-        Server_client.User serverUser = new Server_client.User();
-        serverUser.setId(sessionUser.getId());
-        serverUser.setBalance(newBalance);
-
-        transferObject.setUser(serverUser);
-        executeSO("updateUser");
-        if (transferObject.isSignal()) {
-            sessionUser.setBalance(newBalance);
-            setBalanceLabel();
-        } else {
-            message(transferObject.getMessage());
-        }
-        return transferObject.isSignal();
-    }
-
     boolean hasBalance() {
         return Session.getInstance().getUser().getBalance() >= betValues.get(betValuesIndex);
     }
     
-    boolean createSpinLinePayouts() {
-        transferObject.getSPositions().clear();
-        transferObject.getSPositions().addAll(sPositions);
-        transferObject.getLinePayouts().clear();
-        transferObject.getLinePayouts().addAll(linePayouts);
-        
-        executeSO("createSpinLinePayouts");
-        win = transferObject.getWin();
-        return transferObject.isSignal();
-    }
-    
-    boolean increaseUserBalance() {
-        //izvojiti sessionUser kao atribut klase
-        User sessionUser = Session.getInstance().getUser();
-        int newBalance = sessionUser.getBalance() + win;
-
-        Server_client.User serverUser = new Server_client.User();
-        serverUser.setId(sessionUser.getId());
-        serverUser.setBalance(newBalance);
-
-        transferObject.setUser(serverUser);
-        executeSO("updateUser");
-        if (transferObject.isSignal()) {
-            sessionUser.setBalance(newBalance);
-            setBalanceLabel();
-        } else {
-            message(transferObject.getMessage());
-        }
-        return transferObject.isSignal();
-    }
-
     public void plus() {
         if (betValuesIndex + 1 < betValues.size()) {
             betValuesIndex++;
@@ -277,76 +190,58 @@ public final class GUIVideoSlotController {
     }
 
     //TODO
-    //iz ove metode se poziva VideoSlotLogic
     public void spin() {
-
-        //videoSlotLogic.spin();
-        //TODO: LOGIKA CELE IGRE
-        //postaviti na disabled spin, plus i minus btn dok se ne zavrsi spin, pa onda vratiti
         disableButtons();
-        //1.RESENO: provera da li ima dovoljno sredstava tj. bet > balance ? ako nema -> poruka i return;
-        //2.RESENO: update user - skinuti mu bet sa balansa
-        if (!reduceUserBalance()) {
-            return;
-        }
-        //3.RESENO: popuniti matricu random vrednostima i postaviti slike, mozda initializePanel() pozvati vise puta
-        //u okviru neke metode koja ce da ulepsa spin
-        initializePanel();
-        //4.RESENO: sacuvati SPIN zajedno sa svim SPosition objektima
-        if(!createSpin()) {
-            message("An error occurred!");
+        if (!hasBalance()) {
+            message("You don't have enough funds on your balance!");
+            enableButtons();
             return;
         }
         
-        //6.RESENO: prolaz kroz matricu kako bi se proverile vrednosti na 5 linija koje se gledaju
-        //ako postoje dobitne linije, izvlaci se iz baze LinePayout za svaku (preko WHERE arrayLength = ? AND symbolId = ?)
-        //i na osnovu toga se cuva SpinLinePayout za svaku dobitnu liniju
-        //postavljanje css klasa za obojeni border na svako polje u dobitnoj liniji
-//        checkLines();
-        if(!createSpinLinePayouts()){
-            message("An error occurred!");
-            return;
-        }
+        User sessionUser = Session.getInstance().getUser();
+        Server_client.User serverUser = new Server_client.User();
+        serverUser.setId(sessionUser.getId());
+        serverUser.setBalance(sessionUser.getBalance());
+        transferObject.setUser(serverUser);
 
-        //7.RESENO: racuna se win
-        //prolaz kroz SpinLinePayout listu, sabiranje dobitaka i cuvanje u bazi objekta Win
-        //postavljanje win labele na taj iznos
+        Spin spin = new Spin();
+        spin.setGameId(game.getId());
+        spin.setBet(betValues.get(betValuesIndex));
+        transferObject.setSpinObject(spin);
         
+        executeSO("executeSpin");
         
-        //8.ponovo update usera sa dodavanjem win-a na balance
-        //ako je win > 0
-        //8.1. pitanje da li zeli da pogadja boju? da -> otvara novu formu, ne -> radi update usera
-        increaseUserBalance();
+        if (!transferObject.isSignal()) {
+            message("An error occured!");
+            enableButtons();
+            return;
+        }
+ 
+        this.sPositions = transferObject.getSPositions();
+        convertSPositionsToMat();
+        setImages();
+        
+        this.win = transferObject.getWin().getAmount();
         setWinLabel();
-        //na kraju
+        
+        sessionUser.setBalance(transferObject.getUser().getBalance());
+        setBalanceLabel();
+        
         enableButtons();
-
     }
 
     public void executeSO(String operation) {
+        if (operation.equals("executeSpin")) {
+            transferObject = serverController.executeSpin(transferObject);
+        }
         if (operation.equals("createGame")) {
             transferObject = serverController.createGame(transferObject);
         }
         if (operation.equals("getSymbols")) {
             transferObject = serverController.getSymbols(transferObject);
         }
-        if (operation.equals("getPositions")) {
-            transferObject = serverController.getPositions(transferObject);
-        }
-        if (operation.equals("getLinePayouts")) {
-            transferObject = serverController.getLinePayouts(transferObject);
-        }
         if (operation.equals("randomizeMatValues")) {
             transferObject = serverController.randomizeMathValues(transferObject);
-        }
-        if (operation.equals("updateUser")) {
-            transferObject = serverController.updateUser(transferObject);
-        }
-        if (operation.equals("createSpin")) {
-            transferObject = serverController.createSpin(transferObject);
-        }
-        if (operation.equals("createSpinLinePayouts")) {
-            transferObject = serverController.createSpinLinePayouts(transferObject);
         }
     }
 

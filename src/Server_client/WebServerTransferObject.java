@@ -27,9 +27,15 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="spinLinePayouts" type="{http://Server/}spinLinePayout" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="spin" type="{http://Server/}spin" minOccurs="0"/>
  *         &lt;element name="game" type="{http://Server/}game" minOccurs="0"/>
- *         &lt;element name="win" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="win" type="{http://Server/}win" minOccurs="0"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="signal" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="gameObject" type="{http://Server/}game" minOccurs="0"/>
+ *         &lt;element name="positionsList" type="{http://Server/}position" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="spinObject" type="{http://Server/}spin" minOccurs="0"/>
+ *         &lt;element name="symbolsList" type="{http://Server/}symbol" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="userObject" type="{http://Server/}user" minOccurs="0"/>
+ *         &lt;element name="winObject" type="{http://Server/}win" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -50,7 +56,13 @@ import javax.xml.bind.annotation.XmlType;
     "game",
     "win",
     "message",
-    "signal"
+    "signal",
+    "gameObject",
+    "positionsList",
+    "spinObject",
+    "symbolsList",
+    "userObject",
+    "winObject"
 })
 public class WebServerTransferObject {
 
@@ -67,9 +79,17 @@ public class WebServerTransferObject {
     protected List<SpinLinePayout> spinLinePayouts;
     protected Spin spin;
     protected Game game;
-    protected int win;
+    protected Win win;
     protected String message;
     protected boolean signal;
+    protected Game gameObject;
+    @XmlElement(nillable = true)
+    protected List<Position> positionsList;
+    protected Spin spinObject;
+    @XmlElement(nillable = true)
+    protected List<Symbol> symbolsList;
+    protected User userObject;
+    protected Win winObject;
 
     /**
      * Gets the value of the user property.
@@ -291,16 +311,24 @@ public class WebServerTransferObject {
     /**
      * Gets the value of the win property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Win }
+     *     
      */
-    public int getWin() {
+    public Win getWin() {
         return win;
     }
 
     /**
      * Sets the value of the win property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Win }
+     *     
      */
-    public void setWin(int value) {
+    public void setWin(Win value) {
         this.win = value;
     }
 
@@ -342,6 +370,160 @@ public class WebServerTransferObject {
      */
     public void setSignal(boolean value) {
         this.signal = value;
+    }
+
+    /**
+     * Gets the value of the gameObject property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Game }
+     *     
+     */
+    public Game getGameObject() {
+        return gameObject;
+    }
+
+    /**
+     * Sets the value of the gameObject property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Game }
+     *     
+     */
+    public void setGameObject(Game value) {
+        this.gameObject = value;
+    }
+
+    /**
+     * Gets the value of the positionsList property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the positionsList property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getPositionsList().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Position }
+     * 
+     * 
+     */
+    public List<Position> getPositionsList() {
+        if (positionsList == null) {
+            positionsList = new ArrayList<Position>();
+        }
+        return this.positionsList;
+    }
+
+    /**
+     * Gets the value of the spinObject property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Spin }
+     *     
+     */
+    public Spin getSpinObject() {
+        return spinObject;
+    }
+
+    /**
+     * Sets the value of the spinObject property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Spin }
+     *     
+     */
+    public void setSpinObject(Spin value) {
+        this.spinObject = value;
+    }
+
+    /**
+     * Gets the value of the symbolsList property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the symbolsList property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getSymbolsList().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Symbol }
+     * 
+     * 
+     */
+    public List<Symbol> getSymbolsList() {
+        if (symbolsList == null) {
+            symbolsList = new ArrayList<Symbol>();
+        }
+        return this.symbolsList;
+    }
+
+    /**
+     * Gets the value of the userObject property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link User }
+     *     
+     */
+    public User getUserObject() {
+        return userObject;
+    }
+
+    /**
+     * Sets the value of the userObject property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link User }
+     *     
+     */
+    public void setUserObject(User value) {
+        this.userObject = value;
+    }
+
+    /**
+     * Gets the value of the winObject property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Win }
+     *     
+     */
+    public Win getWinObject() {
+        return winObject;
+    }
+
+    /**
+     * Sets the value of the winObject property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Win }
+     *     
+     */
+    public void setWinObject(Win value) {
+        this.winObject = value;
     }
 
 }

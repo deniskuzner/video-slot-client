@@ -7,18 +7,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for spinLinePayout complex type.
+ * <p>Java class for win complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="spinLinePayout">
+ * &lt;complexType name="win">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="amount" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="gameId" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="lineNumber" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="linePayoutId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="spinId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -29,18 +29,34 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "spinLinePayout", propOrder = {
+@XmlType(name = "win", propOrder = {
+    "amount",
     "gameId",
-    "lineNumber",
-    "linePayoutId",
+    "id",
     "spinId"
 })
-public class SpinLinePayout {
+public class Win {
 
+    protected int amount;
     protected int gameId;
-    protected int lineNumber;
-    protected int linePayoutId;
+    protected int id;
     protected int spinId;
+
+    /**
+     * Gets the value of the amount property.
+     * 
+     */
+    public int getAmount() {
+        return amount;
+    }
+
+    /**
+     * Sets the value of the amount property.
+     * 
+     */
+    public void setAmount(int value) {
+        this.amount = value;
+    }
 
     /**
      * Gets the value of the gameId property.
@@ -59,35 +75,19 @@ public class SpinLinePayout {
     }
 
     /**
-     * Gets the value of the lineNumber property.
+     * Gets the value of the id property.
      * 
      */
-    public int getLineNumber() {
-        return lineNumber;
+    public int getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the lineNumber property.
+     * Sets the value of the id property.
      * 
      */
-    public void setLineNumber(int value) {
-        this.lineNumber = value;
-    }
-
-    /**
-     * Gets the value of the linePayoutId property.
-     * 
-     */
-    public int getLinePayoutId() {
-        return linePayoutId;
-    }
-
-    /**
-     * Sets the value of the linePayoutId property.
-     * 
-     */
-    public void setLinePayoutId(int value) {
-        this.linePayoutId = value;
+    public void setId(int value) {
+        this.id = value;
     }
 
     /**

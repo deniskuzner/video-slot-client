@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="bet" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="gameId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="win" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="sPositions" type="{http://Server/}sPosition" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -37,7 +36,6 @@ import javax.xml.bind.annotation.XmlType;
     "bet",
     "gameId",
     "id",
-    "win",
     "sPositions"
 })
 public class Spin {
@@ -45,7 +43,6 @@ public class Spin {
     protected int bet;
     protected int gameId;
     protected int id;
-    protected int win;
     @XmlElement(nillable = true)
     protected List<SPosition> sPositions;
 
@@ -95,22 +92,6 @@ public class Spin {
      */
     public void setId(int value) {
         this.id = value;
-    }
-
-    /**
-     * Gets the value of the win property.
-     * 
-     */
-    public int getWin() {
-        return win;
-    }
-
-    /**
-     * Sets the value of the win property.
-     * 
-     */
-    public void setWin(int value) {
-        this.win = value;
     }
 
     /**
