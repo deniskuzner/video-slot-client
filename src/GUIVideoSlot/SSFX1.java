@@ -33,7 +33,7 @@ public class SSFX1 extends Application {
         fxmlDocumentController = (FXMLDocumentController) fxmlLoader.getController();
 
         Scene scene = new Scene(root);
-        //scene.getStylesheets().add("CSS/stylesheet.css");
+        scene.getStylesheets().add("assets/stylesheet.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("Video Slot");
         primaryStage.show();

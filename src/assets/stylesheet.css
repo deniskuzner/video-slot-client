@@ -8,3 +8,28 @@ and open the template in the editor.
     Author     : User
 */
 
+
+.line-one {
+    -fx-border-color: orangered;
+    -fx-border-width: 5;
+}
+
+.line-two {
+    -fx-border-color: #ffdd34;
+    -fx-border-width: 5;
+}
+
+.line-three {
+    -fx-border-color: #50db3d;
+    -fx-border-width: 5;
+}
+
+.line-four {
+    -fx-border-color: cornflowerblue;
+    -fx-border-width: 5;
+}
+
+.line-five {
+    -fx-border-color: violet;
+    -fx-border-width: 5;
+}

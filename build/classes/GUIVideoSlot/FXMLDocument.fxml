@@ -9,16 +9,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="629.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIVideoSlot.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="629.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIVideoSlot.FXMLDocumentController">
    <children>
-      <Pane layoutY="498.0" prefHeight="131.0" prefWidth="970.0" style="-fx-background-color: #50db3d;">
+      <Pane layoutY="498.0" prefHeight="131.0" prefWidth="1069.0" style="-fx-background-color: #50db3d;">
          <children>
-            <Button fx:id="btnSpin" layoutX="799.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="156.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="SPIN" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="13.0" layoutY="11.0" prefHeight="110.0" prefWidth="141.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="5 LINES" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnSpin" layoutX="904.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="156.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="SPIN" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Button>
-            <Pane layoutX="236.0" layoutY="11.0" prefHeight="110.0" prefWidth="267.0" style="-fx-background-color: #1eff00; -fx-border-color: white;">
+            <Pane layoutX="388.0" layoutY="11.0" prefHeight="110.0" prefWidth="267.0" style="-fx-background-color: #1eff00; -fx-border-color: white;">
                <children>
                   <Label layoutX="54.0" layoutY="11.0" text="BALANCE" textFill="WHITE">
                      <font>
@@ -32,23 +37,23 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="516.0" layoutY="11.0" prefHeight="110.0" prefWidth="267.0" style="-fx-background-color: #1eff00; -fx-border-color: white;">
+            <Pane layoutX="668.0" layoutY="11.0" prefHeight="110.0" prefWidth="224.0" style="-fx-background-color: #1eff00; -fx-border-color: white;">
                <children>
-                  <Label layoutX="94.0" layoutY="14.0" text="WIN" textFill="WHITE">
+                  <Label layoutX="74.0" layoutY="11.0" text="WIN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblWin" alignment="CENTER" layoutX="16.0" layoutY="64.0" prefHeight="35.0" prefWidth="233.0" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="lblWin" alignment="CENTER" layoutX="16.0" layoutY="64.0" prefHeight="35.0" prefWidth="192.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="58.0" layoutY="11.0" prefHeight="110.0" prefWidth="123.0" style="-fx-background-color: #1eff00; -fx-border-color: white;">
+            <Pane layoutX="209.0" layoutY="11.0" prefHeight="110.0" prefWidth="123.0" style="-fx-background-color: #1eff00; -fx-border-color: white;">
                <children>
-                  <Label layoutX="30.0" layoutY="14.0" text="BET" textFill="WHITE">
+                  <Label layoutX="30.0" layoutY="11.0" text="BET" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
@@ -60,19 +65,19 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="btnPlus" layoutX="186.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="39.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="+" textFill="WHITE">
+            <Button fx:id="btnPlus" layoutX="337.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="39.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="+" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnMinus" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="39.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="-" textFill="WHITE">
+            <Button fx:id="btnMinus" layoutX="165.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="39.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="-" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <GridPane layoutX="14.0" layoutY="11.0" prefHeight="473.0" prefWidth="942.0">
+      <GridPane layoutX="62.0" layoutY="11.0" prefHeight="478.0" prefWidth="951.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -103,5 +108,55 @@
             <Button fx:id="p24" focusTraversable="false" mnemonicParsing="false" prefHeight="185.0" prefWidth="185.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
          </children>
       </GridPane>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="11.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: orangered;" text="1" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="228.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #ffdd34;" text="2" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="394.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #50db3d;" text="3" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="62.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: cornflowerblue;" text="4" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="444.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: violet;" text="5" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1015.0" layoutY="445.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: violet;" text="5" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1015.0" layoutY="63.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: cornflowerblue;" text="4" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1015.0" layoutY="395.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #50db3d;" text="3" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1015.0" layoutY="229.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #ffdd34;" text="2" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1015.0" layoutY="12.0" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: orangered;" text="1" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

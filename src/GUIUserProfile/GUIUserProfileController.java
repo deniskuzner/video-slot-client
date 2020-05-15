@@ -70,12 +70,14 @@ public class GUIUserProfileController {
             transferObject.generalEntity = Session.getInstance().getUser();
             transferObject.operation = "deleteUser";
             transferObject = Communication.getInstance().executeSO(transferObject);
-
             message(transferObject.message);
-            exitProgram();
+
+            if (transferObject.signal) {
+                exitProgram();
+            }
         }
     }
-    
+
     public void exitProgram() {
         Platform.exit();
         System.exit(0);

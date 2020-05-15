@@ -10,10 +10,12 @@ import GUIVideoSlot.Listeners.MinusListener;
 import GUIVideoSlot.Listeners.PlusListener;
 import GUIVideoSlot.Listeners.SpinListener;
 import Server_client.Game;
+import Server_client.LinePayout;
 import Server_client.SPosition;
 import Server_client.ServerController;
 import Server_client.ServerController_Service;
 import Server_client.Spin;
+import Server_client.SpinLinePayout;
 import Server_client.Symbol;
 import Server_client.WebServerTransferObject;
 import Session.Session;
@@ -45,6 +47,7 @@ public final class GUIVideoSlotController {
     List<Symbol> symbols;
     List<SPosition> sPositions;
     Game game;
+    User sessionUser;
 
     public GUIVideoSlotController(FXMLDocumentController fxmlDocumentController) {
         this.fxmlDocumentController = fxmlDocumentController;
@@ -61,10 +64,11 @@ public final class GUIVideoSlotController {
         win = 0;
         mat = new int[3][5];
         sPositions = new ArrayList<>();
-        
+        sessionUser = Session.getInstance().getUser();
+
         createGame();
         getSymbols();
-        
+
         populateForm();
     }
 
@@ -75,7 +79,7 @@ public final class GUIVideoSlotController {
         infoAlert.setContentText(message);
         infoAlert.showAndWait();
     }
-    
+
     void createGame() {
         game = new Game();
         game.setUserId(Session.getInstance().getUser().getId());
@@ -97,7 +101,7 @@ public final class GUIVideoSlotController {
     }
 
     void setBalanceLabel() {
-        fxmlDocumentController.lblBalance.setText(Session.getInstance().getUser().getBalance() + " RSD");
+        fxmlDocumentController.lblBalance.setText(sessionUser.getBalance() + " RSD");
     }
 
     void setBetLabel() {
@@ -114,19 +118,19 @@ public final class GUIVideoSlotController {
         convertSPositionsToMat();
         setImages();
     }
-    
-    void randomizeMatValues(){
+
+    void randomizeMatValues() {
         transferObject.setGame(game);
         executeSO("randomizeMatValues");
         sPositions = transferObject.getSPositions();
     }
-    
+
     void convertSPositionsToMat() {
         for (SPosition sPosition : sPositions) {
             mat[sPosition.getPosition().getX()][sPosition.getPosition().getY()] = sPosition.getSymbol().getId();
         }
     }
-   
+
     void setImages() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 5; y++) {
@@ -134,7 +138,7 @@ public final class GUIVideoSlotController {
             }
         }
     }
-    
+
     String getSymbolNameById(int id) {
         return symbols.stream().filter(s -> s.getId() == id).findFirst().get().getName();
     }
@@ -159,6 +163,104 @@ public final class GUIVideoSlotController {
         return new Image(location + fileName, 140, 140, false, true);
     }
 
+    boolean hasBalance() {
+        return sessionUser.getBalance() >= betValues.get(betValuesIndex);
+    }
+
+    void updatePanel() {
+        this.sPositions = transferObject.getSPositions();
+        convertSPositionsToMat();
+        setImages();
+
+        this.win = transferObject.getWin().getAmount();
+        setWinLabel();
+
+        sessionUser.setBalance(transferObject.getUser().getBalance());
+        setBalanceLabel();
+
+        try {
+            setWinLineBorders();
+        } catch (IllegalArgumentException | NoSuchFieldException | IllegalAccessException ex) {
+            Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //uraditi u novom Thread-u
+    //na kraju ocistiti border svih polja
+    void setWinLineBorders() throws IllegalArgumentException, NoSuchFieldException, IllegalAccessException {
+        List<SpinLinePayout> spinLinePayouts = transferObject.getSpinLinePayouts();
+        List<LinePayout> linePayouts = transferObject.getLinePayouts();
+        for (SpinLinePayout spinLinePayout : spinLinePayouts) {
+            int arrayLength = linePayouts.stream().filter(lp -> lp.getId() == spinLinePayout.getLinePayoutId()).findFirst().get().getArrayLength();
+
+            switch (spinLinePayout.getLineNumber()) {
+                case 1:
+                    for (int y = 0; y < arrayLength; y++) {
+                        setButtonStyleClass(0, y, "line-one");
+                    }
+                    break;
+                case 2:
+                    for (int y = 0; y < arrayLength; y++) {
+                        setButtonStyleClass(1, y, "line-two");
+                    }
+                    break;
+                case 3:
+                    for (int y = 0; y < arrayLength; y++) {
+                        setButtonStyleClass(2, y, "line-three");
+                    }
+                    break;
+                case 4:
+                    int x = 0;
+                    for (int y = 0; y < arrayLength; y++) {
+                        setButtonStyleClass(x, y, "line-four");
+                        if (y < 2) {
+                            x++;
+                        } else {
+                            x--;
+                        }
+                    }
+                    break;
+                case 5:
+                    x = 2;
+                    for (int y = 0; y < arrayLength; y++) {
+                        setButtonStyleClass(x, y, "line-five");
+                        if (y < 2) {
+                            x--;
+                        } else {
+                            x++;
+                        }
+                    }
+                    break;
+            }
+
+        }
+
+    }
+
+    void setButtonStyleClass(int x, int y, String styleClass) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        String buttonName = "p" + x + y;
+        Class cls = this.fxmlDocumentController.getClass();
+        Field field = cls.getDeclaredField(buttonName);
+        Button b = (Button) field.get(this.fxmlDocumentController);
+        b.getStyleClass().add(styleClass);
+    }
+
+    void clearPanel() {
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 5; y++) {
+                try {
+                    String buttonName = "p" + x + y;
+                    Class cls = this.fxmlDocumentController.getClass();
+                    Field field = cls.getDeclaredField(buttonName);
+                    Button b = (Button) field.get(this.fxmlDocumentController);
+                    b.getStyleClass().removeAll("line-one","line-two","line-three","line-four","line-five");
+                } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+                    Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
     private void disableButtons() {
         this.fxmlDocumentController.btnMinus.setDisable(true);
         this.fxmlDocumentController.btnPlus.setDisable(true);
@@ -171,10 +273,6 @@ public final class GUIVideoSlotController {
         this.fxmlDocumentController.btnSpin.setDisable(false);
     }
 
-    boolean hasBalance() {
-        return Session.getInstance().getUser().getBalance() >= betValues.get(betValuesIndex);
-    }
-    
     public void plus() {
         if (betValuesIndex + 1 < betValues.size()) {
             betValuesIndex++;
@@ -189,16 +287,15 @@ public final class GUIVideoSlotController {
         }
     }
 
-    //TODO
     public void spin() {
+        clearPanel();
         disableButtons();
         if (!hasBalance()) {
             message("You don't have enough funds on your balance!");
             enableButtons();
             return;
         }
-        
-        User sessionUser = Session.getInstance().getUser();
+
         Server_client.User serverUser = new Server_client.User();
         serverUser.setId(sessionUser.getId());
         serverUser.setBalance(sessionUser.getBalance());
@@ -208,34 +305,24 @@ public final class GUIVideoSlotController {
         spin.setGameId(game.getId());
         spin.setBet(betValues.get(betValuesIndex));
         transferObject.setSpinObject(spin);
-        
+
         executeSO("executeSpin");
-        
         if (!transferObject.isSignal()) {
             message("An error occured!");
             enableButtons();
             return;
         }
- 
-        this.sPositions = transferObject.getSPositions();
-        convertSPositionsToMat();
-        setImages();
-        
-        this.win = transferObject.getWin().getAmount();
-        setWinLabel();
-        
-        sessionUser.setBalance(transferObject.getUser().getBalance());
-        setBalanceLabel();
-        
+        updatePanel();
+
         enableButtons();
     }
 
     public void executeSO(String operation) {
-        if (operation.equals("executeSpin")) {
-            transferObject = serverController.executeSpin(transferObject);
-        }
         if (operation.equals("createGame")) {
             transferObject = serverController.createGame(transferObject);
+        }
+        if (operation.equals("executeSpin")) {
+            transferObject = serverController.executeSpin(transferObject);
         }
         if (operation.equals("getSymbols")) {
             transferObject = serverController.getSymbols(transferObject);
