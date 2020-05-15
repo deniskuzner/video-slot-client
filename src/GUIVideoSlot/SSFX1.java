@@ -6,6 +6,7 @@
 package GUIVideoSlot;
 
 import GUIMain.GUIMainController;
+import Threads.WinLinesStyleThread;
 import java.net.URL;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -41,6 +42,10 @@ public class SSFX1 extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 guiMainController.setUser();
+                WinLinesStyleThread winLinesStyleThread = fxmlDocumentController.guiVideoSlotController.winLinesStyleThread;
+                if (winLinesStyleThread != null) {
+                    winLinesStyleThread.setSignal();
+                }
             }
         });
     }

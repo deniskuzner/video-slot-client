@@ -19,6 +19,7 @@ import Server_client.SpinLinePayout;
 import Server_client.Symbol;
 import Server_client.WebServerTransferObject;
 import Session.Session;
+import Threads.WinLinesStyleThread;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +49,7 @@ public final class GUIVideoSlotController {
     List<SPosition> sPositions;
     Game game;
     User sessionUser;
+    WinLinesStyleThread winLinesStyleThread;
 
     public GUIVideoSlotController(FXMLDocumentController fxmlDocumentController) {
         this.fxmlDocumentController = fxmlDocumentController;
@@ -178,71 +180,8 @@ public final class GUIVideoSlotController {
         sessionUser.setBalance(transferObject.getUser().getBalance());
         setBalanceLabel();
 
-        try {
-            setWinLineBorders();
-        } catch (IllegalArgumentException | NoSuchFieldException | IllegalAccessException ex) {
-            Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    //uraditi u novom Thread-u
-    //na kraju ocistiti border svih polja
-    void setWinLineBorders() throws IllegalArgumentException, NoSuchFieldException, IllegalAccessException {
-        List<SpinLinePayout> spinLinePayouts = transferObject.getSpinLinePayouts();
-        List<LinePayout> linePayouts = transferObject.getLinePayouts();
-        for (SpinLinePayout spinLinePayout : spinLinePayouts) {
-            int arrayLength = linePayouts.stream().filter(lp -> lp.getId() == spinLinePayout.getLinePayoutId()).findFirst().get().getArrayLength();
-
-            switch (spinLinePayout.getLineNumber()) {
-                case 1:
-                    for (int y = 0; y < arrayLength; y++) {
-                        setButtonStyleClass(0, y, "line-one");
-                    }
-                    break;
-                case 2:
-                    for (int y = 0; y < arrayLength; y++) {
-                        setButtonStyleClass(1, y, "line-two");
-                    }
-                    break;
-                case 3:
-                    for (int y = 0; y < arrayLength; y++) {
-                        setButtonStyleClass(2, y, "line-three");
-                    }
-                    break;
-                case 4:
-                    int x = 0;
-                    for (int y = 0; y < arrayLength; y++) {
-                        setButtonStyleClass(x, y, "line-four");
-                        if (y < 2) {
-                            x++;
-                        } else {
-                            x--;
-                        }
-                    }
-                    break;
-                case 5:
-                    x = 2;
-                    for (int y = 0; y < arrayLength; y++) {
-                        setButtonStyleClass(x, y, "line-five");
-                        if (y < 2) {
-                            x--;
-                        } else {
-                            x++;
-                        }
-                    }
-                    break;
-            }
-
-        }
-
-    }
-
-    void setButtonStyleClass(int x, int y, String styleClass) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        String buttonName = "p" + x + y;
-        Class cls = this.fxmlDocumentController.getClass();
-        Field field = cls.getDeclaredField(buttonName);
-        Button b = (Button) field.get(this.fxmlDocumentController);
-        b.getStyleClass().add(styleClass);
+        winLinesStyleThread = new WinLinesStyleThread(fxmlDocumentController, transferObject.getSpinLinePayouts(), transferObject.getLinePayouts());
+        winLinesStyleThread.start();
     }
 
     void clearPanel() {
@@ -288,6 +227,9 @@ public final class GUIVideoSlotController {
     }
 
     public void spin() {
+        if(winLinesStyleThread != null) {
+            winLinesStyleThread.setSignal();
+        }
         clearPanel();
         disableButtons();
         if (!hasBalance()) {
