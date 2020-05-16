@@ -83,7 +83,7 @@ public class WinLinesStyleThread extends Thread {
                 try {
                     Thread.sleep(1000);
                     clearPanel();
-                    Thread.sleep(1000);
+                    Thread.sleep(700);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(WinLinesStyleThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
