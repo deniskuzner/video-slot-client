@@ -182,7 +182,7 @@ public final class GUIVideoSlotController {
         winLinesStyleThread.start();
     }
 
-    void clearPanel() {
+    public void clearPanel() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 5; y++) {
                 try {
@@ -190,7 +190,8 @@ public final class GUIVideoSlotController {
                     Class cls = this.fxmlDocumentController.getClass();
                     Field field = cls.getDeclaredField(buttonName);
                     Button b = (Button) field.get(this.fxmlDocumentController);
-                    b.getStyleClass().removeAll("line-one","line-two","line-three","line-four","line-five");
+                    b.getStyleClass().clear();
+                    b.getStyleClass().add("button");
                 } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
                     Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -226,7 +227,7 @@ public final class GUIVideoSlotController {
 
     public void spin() {
         if(winLinesStyleThread != null) {
-            winLinesStyleThread.setSignal();
+            winLinesStyleThread.interrupt();
         }
         clearPanel();
         disableButtons();

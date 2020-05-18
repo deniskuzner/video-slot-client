@@ -44,7 +44,7 @@ public class SSFX1 extends Application {
                 guiMainController.setUser();
                 WinLinesStyleThread winLinesStyleThread = fxmlDocumentController.guiVideoSlotController.winLinesStyleThread;
                 if (winLinesStyleThread != null) {
-                    winLinesStyleThread.setSignal();
+                    winLinesStyleThread.interrupt();
                 }
             }
         });

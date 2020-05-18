@@ -25,74 +25,67 @@ public class WinLinesStyleThread extends Thread {
     private List<SpinLinePayout> spinLinePayouts;
     private List<LinePayout> linePayouts;
 
-    private boolean signal;
-
     public WinLinesStyleThread(FXMLDocumentController fxmlDocumentController, List<SpinLinePayout> spinLinePayouts, List<LinePayout> linePayouts) {
         this.fxmlDocumentController = fxmlDocumentController;
         this.spinLinePayouts = spinLinePayouts;
         this.linePayouts = linePayouts;
-        this.signal = true;
     }
 
     @Override
     public void run() {
-        while (signal) {
-            for (SpinLinePayout spinLinePayout : spinLinePayouts) {
-                int arrayLength = linePayouts.stream().filter(lp -> lp.getId() == spinLinePayout.getLinePayoutId()).findFirst().get().getArrayLength();
+        try {
+            while (!isInterrupted()) {
+                for (SpinLinePayout spinLinePayout : spinLinePayouts) {
+                    int arrayLength = linePayouts.stream().filter(lp -> lp.getId() == spinLinePayout.getLinePayoutId()).findFirst().get().getArrayLength();
+                    int x = 0;
+                    switch (spinLinePayout.getLineNumber()) {
+                        case 1:
+                            for (int y = 0; y < arrayLength; y++) {
+                                setButtonStyleClass(0, y, "line-one");
+                            }
+                            break;
+                        case 2:
+                            for (int y = 0; y < arrayLength; y++) {
+                                setButtonStyleClass(1, y, "line-two");
+                            }
+                            break;
+                        case 3:
+                            for (int y = 0; y < arrayLength; y++) {
+                                setButtonStyleClass(2, y, "line-three");
+                            }
+                            break;
+                        case 4:
+                            x = 0;
+                            for (int y = 0; y < arrayLength; y++) {
+                                setButtonStyleClass(x, y, "line-four");
+                                if (y < 2) {
+                                    x++;
+                                } else {
+                                    x--;
+                                }
+                            }
+                            break;
+                        case 5:
+                            x = 2;
+                            for (int y = 0; y < arrayLength; y++) {
+                                setButtonStyleClass(x, y, "line-five");
+                                if (y < 2) {
+                                    x--;
+                                } else {
+                                    x++;
+                                }
+                            }
+                            break;
+                    }
 
-                switch (spinLinePayout.getLineNumber()) {
-                    case 1:
-                        for (int y = 0; y < arrayLength; y++) {
-                            setButtonStyleClass(0, y, "line-one");
-                        }
-                        break;
-                    case 2:
-                        for (int y = 0; y < arrayLength; y++) {
-                            setButtonStyleClass(1, y, "line-two");
-                        }
-                        break;
-                    case 3:
-                        for (int y = 0; y < arrayLength; y++) {
-                            setButtonStyleClass(2, y, "line-three");
-                        }
-                        break;
-                    case 4:
-                        int x = 0;
-                        for (int y = 0; y < arrayLength; y++) {
-                            setButtonStyleClass(x, y, "line-four");
-                            if (y < 2) {
-                                x++;
-                            } else {
-                                x--;
-                            }
-                        }
-                        break;
-                    case 5:
-                        x = 2;
-                        for (int y = 0; y < arrayLength; y++) {
-                            setButtonStyleClass(x, y, "line-five");
-                            if (y < 2) {
-                                x--;
-                            } else {
-                                x++;
-                            }
-                        }
-                        break;
-                }
-                
-                try {
-                    Thread.sleep(1000);
+                    sleep(1000);
                     clearPanel();
-                    Thread.sleep(700);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(WinLinesStyleThread.class.getName()).log(Level.SEVERE, null, ex);
+                    sleep(700);
                 }
             }
+        } catch (InterruptedException e) {
         }
-    }
-    
-    public void setSignal() {
-        this.signal = false;
+
     }
 
     void setButtonStyleClass(int x, int y, String styleClass) {
@@ -115,7 +108,9 @@ public class WinLinesStyleThread extends Thread {
                     Class cls = this.fxmlDocumentController.getClass();
                     Field field = cls.getDeclaredField(buttonName);
                     Button b = (Button) field.get(this.fxmlDocumentController);
-                    b.getStyleClass().removeAll("line-one", "line-two", "line-three", "line-four", "line-five");
+//                    b.getStyleClass().removeAll("line-one", "line-two", "line-three", "line-four", "line-five");
+                    b.getStyleClass().clear();
+                    b.getStyleClass().add("button");
                 } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
                     Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
                 }
