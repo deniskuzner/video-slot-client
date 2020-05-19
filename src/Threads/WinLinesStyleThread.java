@@ -5,15 +5,11 @@
  */
 package Threads;
 
-import GUIVideoSlot.FXMLDocumentController;
 import GUIVideoSlot.GUIVideoSlotController;
 import Server_client.LinePayout;
 import Server_client.SpinLinePayout;
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.Button;
+import javafx.application.Platform;
 
 /**
  *
@@ -21,12 +17,12 @@ import javafx.scene.control.Button;
  */
 public class WinLinesStyleThread extends Thread {
 
-    private FXMLDocumentController fxmlDocumentController;
+    private GUIVideoSlotController guiVideoSlotController;
     private List<SpinLinePayout> spinLinePayouts;
     private List<LinePayout> linePayouts;
 
-    public WinLinesStyleThread(FXMLDocumentController fxmlDocumentController, List<SpinLinePayout> spinLinePayouts, List<LinePayout> linePayouts) {
-        this.fxmlDocumentController = fxmlDocumentController;
+    public WinLinesStyleThread(GUIVideoSlotController guiVideoSlotController, List<SpinLinePayout> spinLinePayouts, List<LinePayout> linePayouts) {
+        this.guiVideoSlotController = guiVideoSlotController;
         this.spinLinePayouts = spinLinePayouts;
         this.linePayouts = linePayouts;
     }
@@ -85,37 +81,14 @@ public class WinLinesStyleThread extends Thread {
             }
         } catch (InterruptedException e) {
         }
-
     }
 
     void setButtonStyleClass(int x, int y, String styleClass) {
-        try {
-            String buttonName = "p" + x + y;
-            Class cls = this.fxmlDocumentController.getClass();
-            Field field = cls.getDeclaredField(buttonName);
-            Button b = (Button) field.get(this.fxmlDocumentController);
-            b.getStyleClass().add(styleClass);
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-            Logger.getLogger(WinLinesStyleThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Platform.runLater(() -> guiVideoSlotController.setButtonStyleClass(x, y, "line-one"));
     }
 
     void clearPanel() {
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 5; y++) {
-                try {
-                    String buttonName = "p" + x + y;
-                    Class cls = this.fxmlDocumentController.getClass();
-                    Field field = cls.getDeclaredField(buttonName);
-                    Button b = (Button) field.get(this.fxmlDocumentController);
-//                    b.getStyleClass().removeAll("line-one", "line-two", "line-three", "line-four", "line-five");
-                    b.getStyleClass().clear();
-                    b.getStyleClass().add("button");
-                } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                    Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        Platform.runLater(() -> guiVideoSlotController.clearPanel());
     }
 
 }

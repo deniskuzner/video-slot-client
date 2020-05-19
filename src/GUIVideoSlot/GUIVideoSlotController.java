@@ -178,7 +178,7 @@ public final class GUIVideoSlotController {
         sessionUser.setBalance(transferObject.getUser().getBalance());
         setBalanceLabel();
 
-        winLinesStyleThread = new WinLinesStyleThread(fxmlDocumentController, transferObject.getSpinLinePayouts(), transferObject.getLinePayouts());
+        winLinesStyleThread = new WinLinesStyleThread(this, transferObject.getSpinLinePayouts(), transferObject.getLinePayouts());
         winLinesStyleThread.start();
     }
 
@@ -190,12 +190,23 @@ public final class GUIVideoSlotController {
                     Class cls = this.fxmlDocumentController.getClass();
                     Field field = cls.getDeclaredField(buttonName);
                     Button b = (Button) field.get(this.fxmlDocumentController);
-                    b.getStyleClass().clear();
-                    b.getStyleClass().add("button");
+                    b.getStyleClass().removeAll("line-one", "line-two", "line-three", "line-four", "line-five");
                 } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
                     Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+    }
+
+    public void setButtonStyleClass(int x, int y, String styleClass) {
+        try {
+            String buttonName = "p" + x + y;
+            Class cls = this.fxmlDocumentController.getClass();
+            Field field = cls.getDeclaredField(buttonName);
+            Button b = (Button) field.get(this.fxmlDocumentController);
+            b.getStyleClass().add(styleClass);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(WinLinesStyleThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -226,11 +237,11 @@ public final class GUIVideoSlotController {
     }
 
     public void spin() {
-        if(winLinesStyleThread != null) {
+        disableButtons();
+        if (winLinesStyleThread != null) {
             winLinesStyleThread.interrupt();
         }
         clearPanel();
-        disableButtons();
         if (!hasBalance()) {
             message("You don't have enough funds on your balance!");
             enableButtons();
