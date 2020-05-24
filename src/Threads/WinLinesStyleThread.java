@@ -84,7 +84,7 @@ public class WinLinesStyleThread extends Thread {
     }
 
     void setButtonStyleClass(int x, int y, String styleClass) {
-        Platform.runLater(() -> guiVideoSlotController.setButtonStyleClass(x, y, "line-one"));
+        Platform.runLater(() -> guiVideoSlotController.setButtonStyleClass(x, y, styleClass));
     }
 
     void clearPanel() {

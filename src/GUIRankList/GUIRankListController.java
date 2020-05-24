@@ -6,11 +6,12 @@
 package GUIRankList;
 
 import Communication.Communication;
-import CompareOperator.CompareOperator;
-import CompareOperator.GreaterThan;
-import CompareOperator.LessThan;
+import Sort.CompareOperator;
+import Sort.GreaterThan;
+import Sort.LessThan;
 import Domain.User;
 import GUIRankList.Listeners.SortListener;
+import Sort.Sort;
 import Transfer.TransferObject;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -73,24 +74,11 @@ public class GUIRankListController {
         }
 
         try {
-            executeSort(fieldReadMethod, compareOperator);
+            new Sort<User>().sort(users, compareOperator, fieldReadMethod);
+            fxmlDocumentController.tblRankList.setItems(users);
         } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException  ex) {
             Logger.getLogger(GUIRankListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void executeSort(Method fieldReadMethod, CompareOperator compareOperator) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-        User pom;
-        for (int i = 0; i < users.size() - 1; i++) {
-            for (int j = i + 1; j < users.size(); j++) {
-                if (compareOperator.compare((Comparable) fieldReadMethod.invoke(users.get(i)), (Comparable) fieldReadMethod.invoke(users.get(j)))) {
-                    pom = users.get(i);
-                    users.set(i, users.get(j));
-                    users.set(j, pom);
-                }
-            }
-        }
-        fxmlDocumentController.tblRankList.setItems(users);
     }
 
 }
