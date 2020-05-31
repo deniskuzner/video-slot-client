@@ -6,6 +6,7 @@
 package GUIVideoSlot;
 
 import Domain.User;
+import GUIVideoSlot.Listeners.InfoListener;
 import GUIVideoSlot.Listeners.MinusListener;
 import GUIVideoSlot.Listeners.PlusListener;
 import GUIVideoSlot.Listeners.SpinListener;
@@ -28,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 /**
  *
@@ -51,6 +53,7 @@ public final class GUIVideoSlotController {
 
     public GUIVideoSlotController(FXMLDocumentController fxmlDocumentController) {
         this.fxmlDocumentController = fxmlDocumentController;
+        this.fxmlDocumentController.btnInfo.setOnAction(new InfoListener(this));
         this.fxmlDocumentController.btnPlus.setOnAction(new PlusListener(this));
         this.fxmlDocumentController.btnMinus.setOnAction(new MinusListener(this));
         this.fxmlDocumentController.btnSpin.setOnAction(new SpinListener(this));
@@ -220,6 +223,15 @@ public final class GUIVideoSlotController {
         this.fxmlDocumentController.btnMinus.setDisable(false);
         this.fxmlDocumentController.btnPlus.setDisable(false);
         this.fxmlDocumentController.btnSpin.setDisable(false);
+    }
+    
+    public void info() {
+        try {
+            GUIVideoSlotInfo.SSFX1 ssfx1 = new GUIVideoSlotInfo.SSFX1();
+            ssfx1.start(new Stage());
+        } catch (Exception ex) {
+            Logger.getLogger(GUIVideoSlotController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void plus() {

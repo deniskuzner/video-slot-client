@@ -13,11 +13,6 @@
    <children>
       <Pane layoutY="498.0" prefHeight="131.0" prefWidth="1069.0" style="-fx-background-color: #50db3d;">
          <children>
-            <Label alignment="CENTER" layoutX="13.0" layoutY="11.0" prefHeight="110.0" prefWidth="141.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="5 LINES" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-            </Label>
             <Button fx:id="btnSpin" layoutX="904.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="156.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="SPIN" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="36.0" />
@@ -73,6 +68,11 @@
             <Button fx:id="btnMinus" layoutX="165.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="39.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="-" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnInfo" layoutX="8.0" layoutY="11.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="146.0" style="-fx-background-color: #1eff00; -fx-border-color: white;" text="INFO" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
                </font>
             </Button>
          </children>

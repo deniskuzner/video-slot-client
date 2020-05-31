@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="836.0" prefWidth="822.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIVideoSlotInfo.FXMLDocumentController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="-2.0" prefHeight="45.0" prefWidth="822.0" style="-fx-background-color: #50db3d;" text="SYMBOL PAYOUTS" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="51.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/seven.png&quot;);" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="50.0" prefHeight="35.0" prefWidth="35.0" text="5" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="50.0" prefHeight="35.0" prefWidth="130.0" text="500 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="91.0" prefHeight="35.0" prefWidth="130.0" text="100 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="91.0" prefHeight="35.0" prefWidth="35.0" text="4" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="130.0" prefHeight="35.0" prefWidth="130.0" text="10 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="130.0" prefHeight="35.0" prefWidth="35.0" text="3" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="130.0" prefHeight="35.0" prefWidth="35.0" text="3" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="130.0" prefHeight="35.0" prefWidth="130.0" text="5 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="91.0" prefHeight="35.0" prefWidth="35.0" text="4" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="91.0" prefHeight="35.0" prefWidth="130.0" text="50 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="50.0" prefHeight="35.0" prefWidth="130.0" text="250 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="50.0" prefHeight="35.0" prefWidth="35.0" text="5" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="445.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/bell.png&quot;);" />
+      <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="445.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/grapes.png&quot;);" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="201.0" prefHeight="35.0" prefWidth="35.0" text="5" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="201.0" prefHeight="35.0" prefWidth="130.0" text="75 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="242.0" prefHeight="35.0" prefWidth="130.0" text="20 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="242.0" prefHeight="35.0" prefWidth="35.0" text="4" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="281.0" prefHeight="35.0" prefWidth="130.0" text="4 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="281.0" prefHeight="35.0" prefWidth="35.0" text="3" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="281.0" prefHeight="35.0" prefWidth="35.0" text="3" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="281.0" prefHeight="35.0" prefWidth="130.0" text="4 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="242.0" prefHeight="35.0" prefWidth="35.0" text="4" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="242.0" prefHeight="35.0" prefWidth="130.0" text="20 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="201.0" prefHeight="35.0" prefWidth="130.0" text="75 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="201.0" prefHeight="35.0" prefWidth="35.0" text="5" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="51.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/melon.png&quot;);" />
+      <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="445.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/lemon.png&quot;);" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="353.0" prefHeight="35.0" prefWidth="35.0" text="5" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="353.0" prefHeight="35.0" prefWidth="130.0" text="25 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="394.0" prefHeight="35.0" prefWidth="130.0" text="10 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="394.0" prefHeight="35.0" prefWidth="35.0" text="4" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="634.0" layoutY="433.0" prefHeight="35.0" prefWidth="130.0" text="2 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="594.0" layoutY="433.0" prefHeight="35.0" prefWidth="35.0" text="3" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="433.0" prefHeight="35.0" prefWidth="35.0" text="3" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="433.0" prefHeight="35.0" prefWidth="130.0" text="2 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="394.0" prefHeight="35.0" prefWidth="35.0" text="4" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="394.0" prefHeight="35.0" prefWidth="130.0" text="10 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="353.0" prefHeight="35.0" prefWidth="130.0" text="25 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="353.0" prefHeight="35.0" prefWidth="35.0" text="5" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="51.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/orange.png&quot;);" />
+      <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="51.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/cherry.png&quot;);" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="504.0" prefHeight="35.0" prefWidth="35.0" text="5" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="504.0" prefHeight="35.0" prefWidth="130.0" text="20 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="545.0" prefHeight="35.0" prefWidth="130.0" text="5 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="545.0" prefHeight="35.0" prefWidth="35.0" text="4" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="584.0" prefHeight="35.0" prefWidth="130.0" text="2 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="584.0" prefHeight="35.0" prefWidth="35.0" text="3" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="624.0" prefHeight="35.0" prefWidth="35.0" text="2" textAlignment="CENTER" textFill="#50db3d">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="240.0" layoutY="624.0" prefHeight="35.0" prefWidth="130.0" text="1 RSD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="679.0" prefHeight="45.0" prefWidth="822.0" style="-fx-background-color: #50db3d;" text="WIN LINES" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="92.0" fitWidth="793.0" layoutX="14.0" layoutY="733.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url(&quot;assets/images/lines.png&quot;);" />
+   </children>
+</AnchorPane>

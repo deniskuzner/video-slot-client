@@ -17,6 +17,9 @@ import javafx.scene.control.Label;
 public class FXMLDocumentController {
     
     @FXML
+    public Button btnInfo;
+    
+    @FXML
     public Button btnMinus;
     
     @FXML
