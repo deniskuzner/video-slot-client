@@ -47,6 +47,7 @@ public final class GUIVideoSlotController {
     int mat[][];
     List<Symbol> symbols;
     List<SPosition> sPositions;
+    Spin spin;
     Game game;
     User sessionUser;
     WinLinesStyleThread winLinesStyleThread;
@@ -68,7 +69,8 @@ public final class GUIVideoSlotController {
         mat = new int[3][5];
         sPositions = new ArrayList<>();
         sessionUser = Session.getInstance().getUser();
-
+        spin = new Spin();
+        
         createGame();
         getSymbols();
 
@@ -171,11 +173,11 @@ public final class GUIVideoSlotController {
     }
 
     void updatePanel() {
-        this.sPositions = transferObject.getSPositions();
+        this.sPositions = spin.getSPositions();
         convertSPositionsToMat();
         setImages();
 
-        this.win = transferObject.getWin().getAmount();
+        this.win = spin.getWin().getAmount();
         setWinLabel();
 
         sessionUser.setBalance(transferObject.getUser().getBalance());
@@ -276,6 +278,7 @@ public final class GUIVideoSlotController {
             enableButtons();
             return;
         }
+        this.spin = transferObject.getSpin();
         updatePanel();
 
         enableButtons();

@@ -3,7 +3,9 @@ package Server_client;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -16,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="createdOn" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
@@ -28,13 +31,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "game", propOrder = {
+    "createdOn",
     "id",
     "userId"
 })
 public class Game {
 
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar createdOn;
     protected int id;
     protected int userId;
+
+    /**
+     * Gets the value of the createdOn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getCreatedOn() {
+        return createdOn;
+    }
+
+    /**
+     * Sets the value of the createdOn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setCreatedOn(XMLGregorianCalendar value) {
+        this.createdOn = value;
+    }
 
     /**
      * Gets the value of the id property.
